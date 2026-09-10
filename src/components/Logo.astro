@@ -1,0 +1,36 @@
+---
+import { site } from '../data/site';
+
+export interface Props {
+  variant?: 'light' | 'red' | 'dark';
+  /** Rendered width in px; height follows the 325:154 lockup ratio. */
+  width?: number;
+  class?: string;
+  /** Set when the logo is the page's own H1 mark and text sits next to it. */
+  decorative?: boolean;
+  eager?: boolean;
+}
+
+const {
+  variant = 'light',
+  width = 190,
+  class: className,
+  decorative = false,
+  eager = false,
+} = Astro.props;
+
+const ratio = 154.39 / 325.14;
+const height = Math.round(width * ratio);
+const alt = decorative ? '' : `${site.brandName} — ${site.tagline}`;
+---
+
+<img
+  src={`/brand/logo-${variant}.svg`}
+  alt={alt}
+  width={width}
+  height={height}
+  class={className}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+  aria-hidden={decorative ? 'true' : undefined}
+/>

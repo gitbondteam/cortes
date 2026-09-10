@@ -1,0 +1,70 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+  /** Rendered in brand red beneath the title, as in the brochure. */
+  accent?: string;
+  lead?: string;
+  align?: 'start' | 'center';
+  /** Heading level — keeps the document outline correct on every page. */
+  as?: 'h1' | 'h2';
+  id?: string;
+  class?: string;
+}
+
+const {
+  eyebrow,
+  title,
+  accent,
+  lead,
+  align = 'start',
+  as: Tag = 'h2',
+  id,
+  class: className = '',
+} = Astro.props;
+---
+
+<header class={`heading heading--${align} ${className}`} data-reveal>
+  {eyebrow && <p class="eyebrow heading__eyebrow">{eyebrow}</p>}
+  <Tag class="display heading__title" id={id}>
+    {title}
+    {accent && <span class="heading__accent">{accent}</span>}
+  </Tag>
+  <span class="rule heading__rule" aria-hidden="true"></span>
+  {lead && <p class="lead muted heading__lead">{lead}</p>}
+</header>
+
+<style>
+  .heading {
+    display: grid;
+    gap: var(--space-sm);
+    max-width: 46rem;
+  }
+
+  .heading--center {
+    justify-items: center;
+    text-align: center;
+    margin-inline: auto;
+  }
+
+  .heading__eyebrow {
+    margin: 0;
+  }
+
+  .heading__title {
+    font-size: var(--step-4);
+  }
+
+  .heading__accent {
+    display: block;
+    color: var(--color-red-bright);
+  }
+
+  .heading__rule {
+    margin-block-start: var(--space-3xs);
+  }
+
+  .heading__lead {
+    margin-block-start: var(--space-2xs);
+  }
+</style>

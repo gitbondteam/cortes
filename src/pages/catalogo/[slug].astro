@@ -1,0 +1,276 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import {
+  allProducts,
+  relatedProducts,
+  categoryName,
+  formatPrice,
+} from '../../lib/catalog';
+import { productEnquiry } from '../../lib/whatsapp';
+import { productSchema, breadcrumbSchema } from '../../lib/schema';
+import { site } from '../../data/site';
+
+export const getStaticPaths = (() =>
+  allProducts.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }))) satisfies GetStaticPaths;
+
+const { product } = Astro.props;
+
+const category = categoryName(product.category);
+const related = relatedProducts(product, 4);
+const price = formatPrice(product);
+
+const trail = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Catálogo', href: '/catalogo/' },
+  { label: product.name },
+];
+
+const description = [
+  `${product.name} — ${category}.`,
+  product.presentation ? `Presentación: ${product.presentation}.` : '',
+  `Consultá por ${product.name} en Cortes Argentinos, ${site.address.city}, ${site.address.region}.`,
+]
+  .filter(Boolean)
+  .join(' ');
+---
+
+<BaseLayout
+  title={product.name}
+  description={description}
+  path={`/catalogo/${product.slug}/`}
+  type="article"
+  schema={[productSchema(product), breadcrumbSchema(trail)]}
+>
+  <div class="container detail">
+    <Breadcrumbs trail={trail} class="detail__crumbs" />
+
+    <article class="detail__main">
+      <div class="detail__tile">
+        <img
+          class="detail__image"
+          src={product.image}
+          alt={product.imageAlt}
+          width="420"
+          height="420"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </div>
+
+      <div class="detail__info">
+        <p class="eyebrow">
+          <a class="detail__cat" href={`/catalogo/?categoria=${product.category}`}>
+            {category}
+          </a>
+        </p>
+
+        <h1 class="display detail__name">{product.name}</h1>
+        <span class="rule" aria-hidden="true"></span>
+
+        <dl class="specs">
+          {
+            product.presentation && (
+              <div class="specs__row">
+                <dt class="specs__label">Presentación</dt>
+                <dd class="specs__value">{product.presentation}</dd>
+              </div>
+            )
+          }
+          <div class="specs__row">
+            <dt class="specs__label">Envasado</dt>
+            <dd class="specs__value">Al vacío</dd>
+          </div>
+          {
+            price && (
+              <div class="specs__row">
+                <dt class="specs__label">Precio</dt>
+                <dd class="specs__value">
+                  <span class="specs__price">{price}</span>
+                </dd>
+              </div>
+            )
+          }
+        </dl>
+
+        {product.description && <p class="detail__desc">{product.description}</p>}
+
+        <div class="detail__actions">
+          <WhatsAppButton
+            message={productEnquiry(product.name)}
+            label={`Consultar por ${product.name}`}
+          />
+          <a class="btn btn--ghost" href="/catalogo/">Volver al catálogo</a>
+        </div>
+
+        <p class="detail__note">
+          Precios y disponibilidad sujetos a stock del día. Consultanos por WhatsApp o
+          acercate a nuestro local en {site.address.street}, {site.address.city}.
+        </p>
+      </div>
+    </article>
+  </div>
+
+  {
+    related.length > 0 && (
+      <section class="section related textured" aria-labelledby="related-title">
+        <div class="container">
+          <SectionHeading
+            eyebrow="También te puede interesar"
+            title="Otros cortes"
+            align="center"
+            id="related-title"
+            class="related__heading"
+          />
+          <ProductGrid products={related} density="snug" showCategory />
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>
+
+<style>
+  .detail {
+    padding-block: var(--space-lg) var(--space-2xl);
+  }
+
+  :global(.detail__crumbs) {
+    margin-block-end: var(--space-xl);
+  }
+
+  .detail__main {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  .detail__tile {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    padding: 7%;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .detail__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .detail__info {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-sm);
+  }
+
+  .detail__cat {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+    color: inherit;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--duration) var(--ease-out);
+  }
+
+  .detail__cat:hover {
+    border-color: currentColor;
+  }
+
+  .detail__name {
+    font-size: var(--step-4);
+  }
+
+  .specs {
+    display: grid;
+    gap: 0;
+    width: 100%;
+    max-width: 32rem;
+    margin-block-start: var(--space-sm);
+  }
+
+  .specs__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
+    justify-content: space-between;
+    align-items: baseline;
+    padding-block: var(--space-xs);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .specs__label {
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-faint);
+  }
+
+  .specs__value {
+    margin: 0;
+    color: var(--color-text);
+    text-align: end;
+  }
+
+  .specs__price {
+    display: inline-block;
+    padding: 0.25rem 0.9rem;
+    font-family: var(--font-condensed);
+    font-size: var(--step--1);
+    color: #fff;
+    background: var(--color-red-soft);
+    border-radius: var(--radius-pill);
+  }
+
+  .detail__desc {
+    max-width: 42ch;
+    color: var(--color-text-muted);
+  }
+
+  .detail__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-md);
+  }
+
+  .detail__note {
+    max-width: 44ch;
+    margin-block-start: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--color-text-faint);
+  }
+
+  .related {
+    background-color: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border);
+  }
+
+  :global(.related__heading) {
+    margin-block-end: var(--space-xl);
+  }
+
+  @media (min-width: 56rem) {
+    .detail__main {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: var(--space-2xl);
+      align-items: center;
+    }
+
+    .detail__tile {
+      position: sticky;
+      top: calc(var(--header-height) + var(--space-md));
+    }
+  }
+</style>

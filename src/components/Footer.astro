@@ -1,0 +1,133 @@
+---
+import Logo from './Logo.astro';
+import SocialLinks from './SocialLinks.astro';
+import LocationBlock from './LocationBlock.astro';
+import { nav } from '../data/nav';
+import { site } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer textured">
+  <div class="footer__hatch hatch" aria-hidden="true"></div>
+
+  <div class="container container--wide footer__inner">
+    <div class="footer__brand">
+      <a href="/" aria-label={`${site.brandName} — Inicio`}>
+        <Logo width={230} />
+      </a>
+      <p class="footer__claim">{site.claim}</p>
+      <SocialLinks class="footer__social" />
+    </div>
+
+    <nav class="footer__nav" aria-label="Navegación del pie de página">
+      <h2 class="footer__heading condensed">Navegación</h2>
+      <ul class="footer__list">
+        {
+          nav.map((item) => (
+            <li>
+              <a class="footer__link" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="footer__contact">
+      <h2 class="footer__heading condensed">Contacto</h2>
+      <LocationBlock variant="compact" />
+    </div>
+  </div>
+
+  <div class="container container--wide footer__base">
+    <p class="footer__legal">
+      © {year} {site.brandName}. {site.tagline}.
+    </p>
+    <p class="footer__legal footer__legal--muted">
+      {site.address.street} · {site.address.city}, {site.address.region}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    position: relative;
+    margin-block-start: auto;
+    background-color: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer__hatch {
+    position: absolute;
+    inset-inline: 0;
+    top: 0;
+    height: 3.5rem;
+    pointer-events: none;
+  }
+
+  .footer__inner {
+    position: relative;
+    display: grid;
+    gap: var(--space-xl);
+    padding-block: var(--space-2xl) var(--space-lg);
+  }
+
+  .footer__brand :global(img) {
+    width: clamp(170px, 40vw, 230px);
+    height: auto;
+  }
+
+  .footer__claim {
+    max-width: 26ch;
+    margin-block: var(--space-sm) var(--space-md);
+    font-size: var(--step-0);
+    color: var(--color-cream);
+  }
+
+  .footer__heading {
+    margin-block-end: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--color-text-faint);
+  }
+
+  .footer__list {
+    display: grid;
+    gap: 0.1rem;
+  }
+
+  .footer__link {
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    align-content: center;
+    color: var(--color-text-muted);
+    transition: color var(--duration) var(--ease-out);
+  }
+
+  .footer__link:hover {
+    color: var(--color-cream);
+  }
+
+  .footer__base {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs) var(--space-md);
+    justify-content: space-between;
+    padding-block: var(--space-md) var(--space-lg);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer__legal {
+    font-size: var(--step--1);
+    color: var(--color-text-faint);
+  }
+
+  @media (min-width: 48rem) {
+    .footer__inner {
+      grid-template-columns: 1.4fr 1fr 1.2fr;
+      gap: var(--space-lg);
+    }
+  }
+</style>

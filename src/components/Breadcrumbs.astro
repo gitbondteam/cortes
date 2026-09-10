@@ -1,0 +1,85 @@
+---
+export interface Crumb {
+  label: string;
+  /** Omit on the final crumb. */
+  href?: string;
+}
+
+export interface Props {
+  trail: Crumb[];
+  class?: string;
+}
+
+const { trail, class: className = '' } = Astro.props;
+---
+
+<nav class={`crumbs ${className}`} aria-label="Miga de pan">
+  <ol class="crumbs__list">
+    {
+      trail.map((crumb, i) => (
+        <li class="crumbs__item">
+          {crumb.href ? (
+            <a class="crumbs__link" href={crumb.href}>
+              {crumb.label}
+            </a>
+          ) : (
+            <span class="crumbs__current" aria-current="page">
+              {crumb.label}
+            </span>
+          )}
+          {i < trail.length - 1 && (
+            <span class="crumbs__sep" aria-hidden="true">
+              /
+            </span>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  .crumbs__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+    margin: 0;
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+  }
+
+  .crumbs__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .crumbs__link,
+  .crumbs__current {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+
+  .crumbs__link {
+    color: var(--color-text-faint);
+    transition: color var(--duration) var(--ease-out);
+  }
+
+  .crumbs__link:hover {
+    color: var(--color-cream);
+  }
+
+  .crumbs__current {
+    color: var(--color-text);
+  }
+
+  .crumbs__sep {
+    color: var(--color-text-faint);
+    opacity: 0.6;
+  }
+</style>

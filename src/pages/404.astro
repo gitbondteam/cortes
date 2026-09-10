@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada"
+  description="No encontramos la página que buscabas. Volvé al catálogo de Cortes Argentinos para ver todos nuestros cortes envasados al vacío."
+  path="/404/"
+  noindex
+>
+  <section class="nf">
+    <div class="container nf__inner">
+      <Logo width={240} class="nf__logo" decorative />
+      <p class="eyebrow">Error 404</p>
+      <h1 class="display nf__title">
+        Este corte
+        <span class="nf__title-accent text-red">no está en la vitrina</span>
+      </h1>
+      <p class="lead muted nf__text">
+        La página que buscabas no existe o cambió de lugar. Volvé al catálogo para ver
+        todos nuestros cortes.
+      </p>
+      <div class="nf__actions">
+        <a class="btn btn--primary" href="/catalogo/">Ver catálogo</a>
+        <a class="btn btn--ghost" href="/">Ir al inicio</a>
+      </div>
+      <WhatsAppButton variant="ghost" class="nf__wa" />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .nf {
+    display: grid;
+    place-items: center;
+    min-height: 68svh;
+    padding-block: var(--space-2xl);
+  }
+
+  .nf__inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .nf__inner :global(.nf__logo) {
+    width: clamp(160px, 42vw, 240px);
+    height: auto;
+    margin-block-end: var(--space-md);
+    opacity: 0.85;
+  }
+
+  .nf__title {
+    max-width: 18ch;
+    font-size: var(--step-3);
+  }
+
+  .nf__title-accent {
+    display: block;
+  }
+
+  .nf__text {
+    max-width: 44ch;
+  }
+
+  .nf__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-md);
+  }
+
+  .nf__inner :global(.nf__wa) {
+    margin-block-start: var(--space-2xs);
+  }
+</style>

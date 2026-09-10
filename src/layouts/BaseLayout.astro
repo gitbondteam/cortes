@@ -1,0 +1,105 @@
+---
+import '../styles/global.css';
+import SEOHead from '../components/SEOHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import { localBusinessSchema } from '../lib/schema';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  path?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  schema?: unknown[];
+  /** Adds the concrete texture to the whole page body. */
+  textured?: boolean;
+}
+
+const {
+  title,
+  description,
+  image,
+  type,
+  noindex = false,
+  schema = [],
+  textured = true,
+} = Astro.props;
+
+const path = Astro.props.path ?? Astro.url.pathname;
+const nodes = [localBusinessSchema(), ...schema];
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <SEOHead
+      title={title}
+      description={description}
+      path={path}
+      image={image}
+      type={type}
+      noindex={noindex}
+      schema={nodes}
+    />
+    <script is:inline>
+      // Marks the document as script-capable so reveal animations only apply
+      // when they can actually be un-applied.
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+
+  <body class={textured ? 'textured' : ''}>
+    <a class="skip-link" href="#main">Saltar al contenido</a>
+    <Header />
+    <main id="main" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+
+    <script>
+      const targets = document.querySelectorAll('[data-reveal]');
+      const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+      const revealAll = () => targets.forEach((el) => el.classList.add('is-visible'));
+
+      if (!targets.length) {
+        // nothing to do
+      } else if (reduced.matches || !('IntersectionObserver' in window)) {
+        revealAll();
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              const el = entry.target as HTMLElement;
+              const delay = Number(el.dataset.revealDelay ?? 0);
+              window.setTimeout(() => el.classList.add('is-visible'), delay);
+              observer.unobserve(el);
+            }
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.06 },
+        );
+        targets.forEach((el) => observer.observe(el));
+
+        // Failsafe: content must never stay invisible because the observer
+        // never ran (headless renderers, print, odd scroll containers).
+        window.setTimeout(revealAll, 3000);
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+  }
+
+  main:focus {
+    outline: none;
+  }
+</style>

@@ -1,0 +1,318 @@
+---
+import { activeCategories, countIn, allProducts } from '../lib/catalog';
+
+export interface Props {
+  /** Enables the text field alongside the category chips. */
+  search?: boolean;
+}
+
+const { search = true } = Astro.props;
+---
+
+{/*
+  Progressive enhancement: this whole bar is hidden until the inline `js` class
+  is on <html>. Without JavaScript every product simply stays visible, so the
+  catalogue is never gated behind a control that cannot work.
+*/}
+<div class="filters" data-filters>
+  <div class="filters__row">
+    <div class="filters__chips" role="group" aria-label="Filtrar por categoría">
+      <button type="button" class="chip" data-filter="todos" aria-pressed="true">
+        Todos
+        <span class="chip__count">{allProducts.length}</span>
+      </button>
+      {
+        activeCategories.map((category) => (
+          <button
+            type="button"
+            class="chip"
+            data-filter={category.id}
+            aria-pressed="false"
+          >
+            {category.name}
+            <span class="chip__count">{countIn(category.id)}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    {
+      search && (
+        <div class="filters__search">
+          <label class="visually-hidden" for="catalog-search">
+            Buscar un corte
+          </label>
+          <svg class="filters__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path
+              d="M10.5 3a7.5 7.5 0 1 0 4.55 13.46l4.24 4.25 1.42-1.42-4.25-4.24A7.5 7.5 0 0 0 10.5 3Zm0 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11Z"
+              fill="currentColor"
+            />
+          </svg>
+          <input
+            type="search"
+            id="catalog-search"
+            class="filters__input"
+            placeholder="Buscar un corte…"
+            autocomplete="off"
+            data-search
+          />
+        </div>
+      )
+    }
+  </div>
+
+  <p class="filters__status" data-status role="status" aria-live="polite"></p>
+</div>
+
+<p class="empty" data-empty hidden>
+  No encontramos cortes con esa búsqueda.
+  <button type="button" class="empty__reset" data-reset>Ver todo el catálogo</button>
+</p>
+
+<style>
+  .filters {
+    display: none;
+    margin-block-end: var(--space-xl);
+  }
+
+  :global(html.js) .filters {
+    display: block;
+  }
+
+  .filters__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    justify-content: space-between;
+  }
+
+  .filters__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 2.75rem;
+    padding: 0.5rem 1.1rem;
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-muted);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    transition:
+      color var(--duration) var(--ease-out),
+      background-color var(--duration) var(--ease-out),
+      border-color var(--duration) var(--ease-out);
+  }
+
+  .chip:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
+
+  .chip[aria-pressed='true'] {
+    color: #fff;
+    background: var(--color-red);
+    border-color: var(--color-red);
+  }
+
+  .chip__count {
+    font-size: 0.75em;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .filters__search {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 14rem;
+    max-width: 20rem;
+  }
+
+  .filters__icon {
+    position: absolute;
+    left: 0.9rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--color-text-faint);
+    pointer-events: none;
+  }
+
+  .filters__input {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.5rem 1rem 0.5rem 2.6rem;
+    font-size: var(--step-0);
+    color: var(--color-text);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-pill);
+    transition: border-color var(--duration) var(--ease-out);
+  }
+
+  .filters__input::placeholder {
+    color: var(--color-text-faint);
+  }
+
+  .filters__input:focus {
+    border-color: var(--color-border-strong);
+  }
+
+  .filters__input::-webkit-search-cancel-button {
+    filter: invert(1);
+    opacity: 0.5;
+  }
+
+  .filters__status {
+    margin-block-start: var(--space-sm);
+    font-size: var(--step--1);
+    color: var(--color-text-faint);
+  }
+
+  .empty {
+    padding-block: var(--space-xl);
+    text-align: center;
+    font-size: var(--step-1);
+    color: var(--color-text-muted);
+  }
+
+  .empty__reset {
+    display: block;
+    margin: var(--space-sm) auto 0;
+    padding: 0.55rem 1.2rem;
+    font-family: var(--font-condensed);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text);
+    border: 1px solid var(--color-border-strong);
+    border-radius: var(--radius-pill);
+  }
+
+  .empty__reset:hover {
+    color: var(--color-cream);
+    border-color: var(--color-cream);
+  }
+
+  @media (max-width: 40rem) {
+    .filters__chips {
+      width: 100%;
+    }
+
+    .filters__search {
+      max-width: none;
+    }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-filters]');
+  const cards = Array.from(document.querySelectorAll<HTMLElement>('[data-product]'));
+
+  if (root && cards.length) {
+    const chips = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-filter]'));
+    const input = root.querySelector<HTMLInputElement>('[data-search]');
+    const status = root.querySelector<HTMLElement>('[data-status]');
+    const empty = document.querySelector<HTMLElement>('[data-empty]');
+    const reset = document.querySelector<HTMLButtonElement>('[data-reset]');
+
+    let category = 'todos';
+    let query = '';
+
+    /** Strip accents so "picana" also matches "Picaña". */
+    const normalise = (value: string) =>
+      value
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const grid = cards[0]?.closest<HTMLElement>('.grid') ?? null;
+    let interactive = false;
+
+    /** Replays a short cross-fade on the grid so swaps don't snap. */
+    const swap = () => {
+      if (!grid || !interactive) return;
+      grid.classList.remove('is-swap');
+      void grid.offsetWidth; // force reflow so the animation restarts
+      grid.classList.add('is-swap');
+    };
+
+    const apply = () => {
+      const q = normalise(query.trim());
+      let visible = 0;
+
+      for (const card of cards) {
+        const item = card.closest<HTMLElement>('.grid__item') ?? card;
+        const matchesCategory = category === 'todos' || card.dataset.category === category;
+        const matchesQuery = !q || normalise(card.dataset.name ?? '').includes(q);
+        const show = matchesCategory && matchesQuery;
+
+        item.hidden = !show;
+        if (show) visible += 1;
+      }
+
+      if (status) {
+        status.textContent =
+          visible === cards.length
+            ? `${cards.length} cortes en el catálogo`
+            : `${visible} ${visible === 1 ? 'corte' : 'cortes'} de ${cards.length}`;
+      }
+      if (empty) empty.hidden = visible !== 0;
+
+      const url = new URL(window.location.href);
+      if (category === 'todos') url.searchParams.delete('categoria');
+      else url.searchParams.set('categoria', category);
+      window.history.replaceState({}, '', url);
+      swap();
+    };
+
+    const selectCategory = (next: string) => {
+      category = next;
+      for (const chip of chips) {
+        chip.setAttribute('aria-pressed', String(chip.dataset.filter === next));
+      }
+      apply();
+    };
+
+    for (const chip of chips) {
+      chip.addEventListener('click', () => selectCategory(chip.dataset.filter ?? 'todos'));
+    }
+
+    if (input) {
+      let timer: number;
+      input.addEventListener('input', () => {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(() => {
+          query = input.value;
+          apply();
+        }, 120);
+      });
+    }
+
+    reset?.addEventListener('click', () => {
+      if (input) input.value = '';
+      query = '';
+      selectCategory('todos');
+      input?.focus();
+    });
+
+    // Honour ?categoria= so category links can be shared.
+    const initial = new URLSearchParams(window.location.search).get('categoria');
+    if (initial && chips.some((c) => c.dataset.filter === initial)) {
+      selectCategory(initial);
+    } else {
+      apply();
+    }
+    interactive = true;
+  }
+</script>

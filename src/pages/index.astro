@@ -1,0 +1,432 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProductGrid from '../components/ProductGrid.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import LocationBlock from '../components/LocationBlock.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+import { featuredProducts, allProducts, activeCategories } from '../lib/catalog';
+import { site } from '../data/site';
+---
+
+<BaseLayout
+  path="/"
+  description={site.defaultDescription}
+>
+  <Hero />
+
+  {/* --- SOMOS ------------------------------------------------------- */}
+  <section class="section split" aria-labelledby="somos-title">
+    <div class="container container--wide split__inner">
+      <figure class="media media--brush split__media" data-reveal>
+        <img
+          src="/images/somos-corte.webp"
+          srcset="/images/somos-corte@small.webp 700w, /images/somos-corte.webp 1400w"
+          sizes="(min-width: 56rem) 46vw, 100vw"
+          alt="Maestro carnicero cortando carne sobre una tabla de madera"
+          width="1400"
+          height="661"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="split__body">
+        <SectionHeading
+          eyebrow="Somos"
+          title="Maestros"
+          accent="de la carne"
+          id="somos-title"
+        />
+        <div class="prose" data-reveal>
+          <p class="lead">
+            Somos una cadena de carnicerías donde nuestro foco son los diferentes cortes
+            de carne, de las distintas regiones de nuestro país.
+          </p>
+          <p>
+            En Cortes la carne es nuestro arte, nuestra pasión. Creamos un ambiente con
+            esencia natural: un corte de carne nos representa a primera vista.
+          </p>
+          <p>
+            En Cortes Argentinos somos maestros de la carne. Nuestra pasión sumada a
+            nuestra experiencia crea un servicio único y exclusivo para nuestros clientes,
+            y hace que puedan conocer, ver y sentir el origen de la carne en su máxima
+            expresión.
+          </p>
+          <a class="btn btn--ghost" href="/nosotros/">Conocé la marca</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* --- HACEMOS ----------------------------------------------------- */}
+  <section class="section hacemos textured" aria-labelledby="hacemos-title">
+    <div class="container container--wide hacemos__inner">
+      <div class="hacemos__body">
+        <SectionHeading
+          eyebrow="Hacemos"
+          title="Cortes"
+          accent="exclusivos"
+          id="hacemos-title"
+        />
+        <div class="prose" data-reveal>
+          <p class="lead">
+            Nos especializamos en cortes de carne exclusivos, un producto premium 100 %
+            argentino.
+          </p>
+          <p>
+            Cada corte está creado por nuestros maestros, que son cuidadosamente tratados
+            para ofrecer un producto único. Te esperamos para que pases a buscar tus
+            cortes: el de cada región, el que más te guste, para la parrilla, la cocina,
+            la estaca, el horno o el disco.
+          </p>
+        </div>
+
+        <ul class="pillars" data-reveal>
+          <li class="pillar">
+            <span class="pillar__num condensed">01</span>
+            <h3 class="pillar__title condensed">Cortes por región</h3>
+            <p class="pillar__text">
+              Cortes de carne de las distintas regiones de nuestro país.
+            </p>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num condensed">02</span>
+            <h3 class="pillar__title condensed">Producto premium</h3>
+            <p class="pillar__text">Un producto premium 100 % argentino.</p>
+          </li>
+          <li class="pillar">
+            <span class="pillar__num condensed">03</span>
+            <h3 class="pillar__title condensed">Oficio de maestros</h3>
+            <p class="pillar__text">
+              Cada corte creado y tratado por nuestros maestros carniceros.
+            </p>
+          </li>
+        </ul>
+      </div>
+
+      <figure class="media media--cutout hacemos__media" data-reveal>
+        <img
+          src="/images/tabla.webp"
+          srcset="/images/tabla@small.webp 600w, /images/tabla.webp 1200w"
+          sizes="(min-width: 56rem) 42vw, 100vw"
+          alt="Cortes de carne presentados sobre una pizarra con tomate y perejil"
+          width="1200"
+          height="682"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+
+  {/* --- DESTACADOS -------------------------------------------------- */}
+  <section class="section" aria-labelledby="destacados-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Catálogo"
+        title="Cortes destacados"
+        lead={`Una selección de nuestros ${allProducts.length} cortes envasados al vacío.`}
+        align="center"
+        id="destacados-title"
+        class="section__heading"
+      />
+
+      <ProductGrid products={featuredProducts} density="snug" showCategory />
+
+      <p class="section__cta" data-reveal>
+        <a class="btn btn--light" href="/catalogo/">Ver catálogo completo</a>
+      </p>
+    </div>
+  </section>
+
+  {/* --- EXPERIENCIA -------------------------------------------------- */}
+  <section class="section experience textured" aria-labelledby="experiencia-title">
+    <div class="container container--wide experience__inner">
+      <figure class="media media--brush-flip experience__media" data-reveal>
+        <img
+          src="/images/vitrina.webp"
+          srcset="/images/vitrina@small.webp 700w, /images/vitrina.webp 1400w"
+          sizes="(min-width: 56rem) 46vw, 100vw"
+          alt="Manos con guantes acomodando bifes sobre una bandeja de pizarra"
+          width="1400"
+          height="933"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="experience__body">
+        <SectionHeading
+          eyebrow="La experiencia"
+          title="¿Qué podés encontrar"
+          accent="en Cortes Argentinos?"
+          id="experiencia-title"
+        />
+        <div class="prose" data-reveal>
+          <p class="lead">
+            Tu corte de carne y cómo se hace: cómo prepararlo, combinaciones para
+            degustarlo con los mejores vinos y acompañamientos, para que cocinar al fuego
+            sea una experiencia única.
+          </p>
+          <p>
+            Pasá por el local, contanos qué vas a cocinar y te ayudamos a elegir el corte.
+            Cualquier cosa que elijas va a salir tan bien que vas a volver, nos vas a
+            recomendar y siempre vas a encontrar alguna excusa para vernos.
+          </p>
+          <WhatsAppButton
+            variant="primary"
+            label="Consultanos por WhatsApp"
+            message="Hola, quisiera una recomendación de corte."
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* --- CATEGORÍAS --------------------------------------------------- */}
+  <section class="section section--tight" aria-labelledby="categorias-title">
+    <div class="container">
+      <h2 class="visually-hidden" id="categorias-title">Categorías del catálogo</h2>
+      <ul class="cats">
+        {
+          activeCategories.map((category) => (
+            <li class="cat" data-reveal>
+              <a class="cat__link" href={`/catalogo/?categoria=${category.id}`}>
+                <h3 class="cat__name condensed">{category.name}</h3>
+                <p class="cat__blurb">{category.blurb}</p>
+                <span class="cat__more" aria-hidden="true">Ver cortes →</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* --- DÓNDE ESTAMOS ------------------------------------------------ */}
+  <section class="section location textured" aria-labelledby="donde-title">
+    <div class="container container--wide location__inner">
+      <div class="location__body">
+        <SectionHeading
+          eyebrow="¿Dónde estamos?"
+          title="Pasá por"
+          accent="la carnicería"
+          id="donde-title"
+        />
+        <LocationBlock class="location__details" />
+        <div class="location__actions" data-reveal>
+          <WhatsAppButton />
+          <SocialLinks showLabels />
+        </div>
+      </div>
+
+      <figure class="media location__media" data-reveal>
+        <img
+          src="/images/local.webp"
+          srcset="/images/local@small.webp 700w, /images/local.webp 1400w"
+          sizes="(min-width: 56rem) 40vw, 100vw"
+          alt="Maestro carnicero porcionando un corte con una cuchilla"
+          width="1400"
+          height="1050"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* --- Shared editorial split ---------------------------------------- */
+
+  .split__inner,
+  .hacemos__inner,
+  .experience__inner,
+  .location__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  /* Keep each subject in frame when the shared ratio crops the photo. */
+  .split__media {
+    --media-focus: 66% 55%;
+  }
+
+  .hacemos__media {
+    /* The cut-out's own ratio, so nothing is cropped and the box is reserved. */
+    --media-ratio: 1200 / 682;
+  }
+
+  .experience__media {
+    --media-focus: 46% 52%;
+  }
+
+  .location__media {
+    --media-focus: 50% 58%;
+  }
+
+  .prose {
+    display: grid;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-md);
+    max-width: 40rem;
+    color: var(--color-text-muted);
+  }
+
+  .prose :global(.btn) {
+    justify-self: start;
+    margin-block-start: var(--space-2xs);
+  }
+
+  :global(.section__heading) {
+    margin-block-end: var(--space-xl);
+  }
+
+  .section__cta {
+    margin-block-start: var(--space-xl);
+    text-align: center;
+  }
+
+  /* --- HACEMOS pillars ------------------------------------------------ */
+
+  .hacemos {
+    background-color: var(--color-bg-deep);
+  }
+
+  .pillars {
+    display: grid;
+    gap: var(--space-md);
+    margin-block-start: var(--space-xl);
+  }
+
+  .pillar {
+    display: grid;
+    gap: var(--space-3xs);
+    padding-inline-start: var(--space-md);
+    border-inline-start: 2px solid var(--color-red);
+  }
+
+  .pillar__num {
+    font-size: var(--step--1);
+    color: var(--color-cream);
+  }
+
+  .pillar__title {
+    font-size: var(--step-1);
+    color: var(--color-text);
+  }
+
+  .pillar__text {
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+
+  /* --- Categories ----------------------------------------------------- */
+
+  .cats {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .cat__link {
+    display: grid;
+    gap: var(--space-2xs);
+    height: 100%;
+    padding: var(--space-lg);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition:
+      border-color var(--duration) var(--ease-out),
+      background-color var(--duration) var(--ease-out),
+      transform var(--duration) var(--ease-out);
+  }
+
+  .cat__link:hover {
+    background: var(--color-bg-raised);
+    border-color: var(--color-border-strong);
+    transform: translateY(-3px);
+  }
+
+  .cat__name {
+    font-size: var(--step-2);
+  }
+
+  .cat__blurb {
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+
+  .cat__more {
+    align-self: end;
+    margin-block-start: var(--space-2xs);
+    font-family: var(--font-condensed);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-cream);
+  }
+
+  /* --- Location -------------------------------------------------------- */
+
+  .location {
+    background-color: var(--color-bg-deep);
+  }
+
+  :global(.location__details) {
+    margin-block-start: var(--space-lg);
+  }
+
+  .location__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-lg);
+  }
+
+  /* --- Breakpoints ----------------------------------------------------- */
+
+  @media (min-width: 40rem) {
+    .pillars {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cats {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .split__inner,
+    .experience__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+    }
+
+    .hacemos__inner,
+    .location__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      gap: var(--space-2xl);
+    }
+
+    /* Alternate the photo to the right on SOMOS. */
+    .split__media {
+      order: 2;
+    }
+
+    .split__media,
+    .experience__media {
+      --media-ratio: 5 / 4;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cat__link:hover {
+      transform: none;
+    }
+  }
+</style>

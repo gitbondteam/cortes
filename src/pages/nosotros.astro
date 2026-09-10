@@ -1,0 +1,307 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Logo from '../components/Logo.astro';
+import { breadcrumbSchema } from '../lib/schema';
+import { allProducts } from '../lib/catalog';
+
+const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
+---
+
+<BaseLayout
+  title="Nosotros"
+  description="Cortes Argentinos es una cadena de carnicerías enfocada en los diferentes cortes de carne de las distintas regiones de Argentina. La carne es nuestro arte, nuestra pasión."
+  path="/nosotros/"
+  schema={[breadcrumbSchema(trail)]}
+>
+  {/* --- Intro ------------------------------------------------------- */}
+  <section class="intro">
+    <div class="container">
+      <Breadcrumbs trail={trail} class="intro__crumbs" />
+      <p class="eyebrow">Nosotros</p>
+      <h1 class="display intro__title">
+        La carne es nuestro arte,
+        <span class="intro__accent">nuestra pasión</span>
+      </h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="lead muted intro__lead">
+        Somos una cadena de carnicerías donde nuestro foco son los diferentes cortes de
+        carne, de las distintas regiones de nuestro país.
+      </p>
+    </div>
+  </section>
+
+  {/* --- SOMOS ------------------------------------------------------- */}
+  <section class="section band" aria-labelledby="somos-title">
+    <div class="container container--wide band__inner">
+      <figure class="media media--brush band__media" data-reveal>
+        <img
+          src="/images/somos-corte.webp"
+          srcset="/images/somos-corte@small.webp 700w, /images/somos-corte.webp 1400w"
+          sizes="(min-width: 56rem) 46vw, 100vw"
+          alt="Maestro carnicero cortando carne sobre una tabla de madera"
+          width="1400"
+          height="661"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="band__body">
+        <SectionHeading eyebrow="Somos" title="Una cadena" accent="de carnicerías" id="somos-title" />
+        <div class="prose" data-reveal>
+          <p>
+            En Cortes la carne es nuestro arte, nuestra pasión. Creamos un ambiente con
+            esencia natural: un corte de carne nos representa a primera vista.
+          </p>
+          <p>
+            En Cortes Argentinos somos <strong>maestros de la carne</strong>. Nuestra
+            pasión sumada a nuestra experiencia crea un servicio único y exclusivo para
+            nuestros clientes, y hace que puedan conocer, ver y sentir el origen de la
+            carne en su máxima expresión.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* --- HACEMOS ----------------------------------------------------- */}
+  <section class="section band band--alt textured" aria-labelledby="hacemos-title">
+    <div class="container container--wide band__inner">
+      <figure class="media media--brush-flip band__media band__media--right" data-reveal>
+        <img
+          src="/images/vitrina.webp"
+          srcset="/images/vitrina@small.webp 700w, /images/vitrina.webp 1400w"
+          sizes="(min-width: 56rem) 46vw, 100vw"
+          alt="Manos con guantes acomodando bifes sobre una bandeja de pizarra"
+          width="1400"
+          height="933"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+
+      <div class="band__body">
+        <SectionHeading eyebrow="Hacemos" title="Cortes" accent="exclusivos" id="hacemos-title" />
+        <div class="prose" data-reveal>
+          <p>
+            Te esperamos para que pases a buscar tus cortes: el de cada región, el que más
+            te guste, para la parrilla, la cocina, la estaca, el horno o el disco. Y que
+            cualquier cosa que elijas salga tan bien que vuelvas, nos recomiendes y siempre
+            encuentres alguna excusa para vernos.
+          </p>
+          <p>
+            Nos especializamos en cortes de carne exclusivos, un producto premium 100 %
+            argentino. Cada corte está creado por nuestros maestros, que son cuidadosamente
+            tratados para ofrecer un producto único.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* --- EXPERIENCIA -------------------------------------------------- */}
+  <section class="section" aria-labelledby="experiencia-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="La experiencia"
+        title="¿Qué podés encontrar"
+        accent="en Cortes Argentinos?"
+        align="center"
+        id="experiencia-title"
+        class="exp__heading"
+      />
+
+      <ul class="exp">
+        <li class="exp__item" data-reveal>
+          <h3 class="exp__title condensed">Tu corte, explicado</h3>
+          <p class="exp__text">
+            Tu corte de carne y cómo se hace: de qué región viene y qué lo distingue.
+          </p>
+        </li>
+        <li class="exp__item" data-reveal data-reveal-delay="60">
+          <h3 class="exp__title condensed">Cómo prepararlo</h3>
+          <p class="exp__text">
+            Para la parrilla, la cocina, la estaca, el horno o el disco.
+          </p>
+        </li>
+        <li class="exp__item" data-reveal data-reveal-delay="120">
+          <h3 class="exp__title condensed">Con qué acompañarlo</h3>
+          <p class="exp__text">
+            Combinaciones para degustarlo con los mejores vinos y acompañamientos.
+          </p>
+        </li>
+        <li class="exp__item" data-reveal data-reveal-delay="180">
+          <h3 class="exp__title condensed">Cocinar al fuego</h3>
+          <p class="exp__text">
+            Para que cocinar al fuego sea una experiencia única.
+          </p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/* --- CTA ---------------------------------------------------------- */}
+  <section class="cta textured" aria-labelledby="cta-title">
+    <div class="container cta__inner">
+      <Logo width={280} class="cta__logo" decorative />
+      <h2 class="display cta__title" id="cta-title">
+        Maestros <span class="text-red">de la carne</span>
+      </h2>
+      <p class="cta__text muted">
+        {allProducts.length} cortes envasados al vacío, listos para que elijas el tuyo.
+      </p>
+      <div class="cta__actions">
+        <a class="btn btn--light" href="/catalogo/">Ver catálogo</a>
+        <WhatsAppButton variant="ghost" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: var(--space-xl) var(--space-lg);
+    background-color: var(--color-bg-deep);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  :global(.intro__crumbs) {
+    margin-block-end: var(--space-lg);
+  }
+
+  .intro__title {
+    max-width: 18ch;
+    margin-block: var(--space-sm) var(--space-sm);
+    font-size: var(--step-4);
+  }
+
+  .intro__accent {
+    display: block;
+    color: var(--color-cream);
+  }
+
+  .intro__lead {
+    max-width: 46ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .band__inner {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: center;
+  }
+
+  .band--alt {
+    background-color: var(--color-bg-deep);
+  }
+
+  .band__media {
+    --media-focus: 66% 55%;
+  }
+
+  .band__media--right {
+    --media-focus: 46% 52%;
+  }
+
+  .prose {
+    display: grid;
+    gap: var(--space-sm);
+    margin-block-start: var(--space-md);
+    max-width: 42rem;
+    color: var(--color-text-muted);
+  }
+
+  .prose strong {
+    color: var(--color-cream);
+    font-weight: 700;
+  }
+
+  :global(.exp__heading) {
+    margin-block-end: var(--space-xl);
+  }
+
+  .exp {
+    display: grid;
+    gap: var(--space-lg);
+  }
+
+  .exp__item {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-block-start: var(--space-sm);
+    border-top: 2px solid var(--color-red);
+  }
+
+  .exp__title {
+    font-size: var(--step-1);
+  }
+
+  .exp__text {
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+  }
+
+  .cta {
+    padding-block: var(--space-2xl);
+    background-color: var(--color-bg-deep);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta__inner {
+    display: grid;
+    justify-items: center;
+    gap: var(--space-sm);
+    text-align: center;
+  }
+
+  .cta__inner :global(.cta__logo) {
+    width: clamp(180px, 40vw, 280px);
+    height: auto;
+    margin-block-end: var(--space-sm);
+  }
+
+  .cta__title {
+    font-size: var(--step-3);
+  }
+
+  .cta__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-md);
+  }
+
+  @media (min-width: 40rem) {
+    .exp {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-lg) var(--space-xl);
+    }
+  }
+
+  @media (min-width: 56rem) {
+    .intro {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
+
+    .band__inner {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-2xl);
+    }
+
+    .band__media {
+      --media-ratio: 5 / 4;
+    }
+
+    .band--alt .band__media--right {
+      order: 2;
+    }
+
+    .exp {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

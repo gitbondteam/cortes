@@ -1,0 +1,117 @@
+---
+import { site, fullAddress, mapsUrl } from '../data/site';
+import { telLink } from '../lib/whatsapp';
+
+export interface Props {
+  class?: string;
+  /** `compact` drops the icons for use inside the footer. */
+  variant?: 'default' | 'compact';
+}
+
+const { class: className = '', variant = 'default' } = Astro.props;
+const compact = variant === 'compact';
+---
+
+<ul class={`loc ${compact ? 'loc--compact' : ''} ${className}`}>
+  <li class="loc__item">
+    {!compact && <span class="loc__label eyebrow">Dónde estamos</span>}
+    <a class="loc__value" href={mapsUrl} target="_blank" rel="noopener noreferrer">
+      <address class="loc__address">
+        {site.address.street}<br />
+        {site.address.city}, {site.address.region}
+      </address>
+      <span class="loc__hint">Ver en Google Maps</span>
+    </a>
+  </li>
+
+  <li class="loc__item">
+    {!compact && <span class="loc__label eyebrow">Teléfono</span>}
+    <a class="loc__value loc__value--single" href={telLink}>
+      {site.phoneDisplay}
+    </a>
+  </li>
+
+  <li class="loc__item">
+    {!compact && <span class="loc__label eyebrow">Instagram</span>}
+    <a
+      class="loc__value loc__value--single"
+      href={site.social.instagramUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {site.social.instagramHandle}
+    </a>
+  </li>
+
+  <li class="loc__item loc__item--sr">
+    <span class="visually-hidden">Dirección completa: {fullAddress}</span>
+  </li>
+</ul>
+
+<style>
+  .loc {
+    display: grid;
+    gap: var(--space-md);
+    margin: 0;
+  }
+
+  .loc--compact {
+    gap: var(--space-2xs);
+  }
+
+  .loc__item {
+    display: grid;
+    gap: var(--space-3xs);
+  }
+
+  .loc__item--sr {
+    display: contents;
+  }
+
+  .loc__label {
+    display: block;
+  }
+
+  .loc__value {
+    display: grid;
+    gap: 0.15rem;
+    font-size: var(--step-1);
+    line-height: 1.35;
+    color: var(--color-text);
+    transition: color var(--duration) var(--ease-out);
+  }
+
+  .loc--compact .loc__value {
+    font-size: var(--step-0);
+    color: var(--color-text-muted);
+  }
+
+  .loc__value:hover {
+    color: var(--color-cream);
+  }
+
+  .loc__value--single {
+    align-content: center;
+    min-height: 2.75rem;
+  }
+
+  .loc--compact .loc__value--single {
+    min-height: 2.75rem;
+  }
+
+  .loc__address {
+    font-style: normal;
+  }
+
+  .loc__hint {
+    font-family: var(--font-condensed);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-cream);
+  }
+
+  .loc--compact .loc__hint {
+    display: none;
+  }
+</style>

@@ -1,0 +1,202 @@
+---
+import Logo from './Logo.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import { site } from '../data/site';
+import { allProducts } from '../lib/catalog';
+---
+
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero__media">
+    <img
+      class="hero__image"
+      src="/images/hero-steak.webp"
+      srcset="/images/hero-steak@small.webp 800w, /images/hero-steak.webp 1600w"
+      sizes="(min-width: 62rem) 55vw, 100vw"
+      alt="Corte de carne vacuna sobre una tabla de madera, listo para la parrilla"
+      width="1600"
+      height="1067"
+      fetchpriority="high"
+      decoding="async"
+    />
+  </div>
+
+  <div class="hero__inner container container--wide">
+    <div class="hero__content">
+      <p class="eyebrow hero__eyebrow">
+        {site.address.city} · {site.address.region}
+      </p>
+
+      <h1 class="hero__title" id="hero-title">
+        <Logo width={520} eager class="hero__logo" />
+        <span class="visually-hidden">{site.brandName} — {site.tagline}</span>
+      </h1>
+
+      <p class="hero__claim display">
+        La carne es nuestro arte,
+        <span class="hero__claim-accent">nuestra pasión</span>
+      </p>
+
+      <p class="hero__lead">
+        Somos una cadena de carnicerías donde nuestro foco son los diferentes cortes
+        de carne de las distintas regiones de nuestro país.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/catalogo/">Ver catálogo</a>
+        <WhatsAppButton variant="ghost" />
+      </div>
+
+      <p class="hero__meta">
+        {allProducts.length} cortes · {site.catalog.subtitle}
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    align-items: center;
+    min-height: min(82svh, 46rem);
+    padding-block: var(--space-2xl);
+    overflow: hidden;
+  }
+
+  /* --- Media ------------------------------------------------------------ */
+
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 46% 48%;
+  }
+
+  /* Mobile: the photo sits behind the copy under a heavy charcoal wash. */
+  .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(10 10 10 / 0.78) 0%,
+        rgb(10 10 10 / 0.66) 42%,
+        rgb(10 10 10 / 0.93) 100%
+      );
+  }
+
+  /* --- Content ---------------------------------------------------------- */
+
+  .hero__inner {
+    position: relative;
+    width: 100%;
+  }
+
+  .hero__content {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-md);
+    max-width: 34rem;
+  }
+
+  .hero__eyebrow {
+    margin: 0;
+  }
+
+  .hero__title {
+    margin: 0;
+    line-height: 0;
+  }
+
+  .hero__title :global(.hero__logo) {
+    width: min(100%, 26rem);
+    height: auto;
+  }
+
+  .hero__claim {
+    margin: 0;
+    font-size: var(--step-2);
+    color: var(--color-text);
+  }
+
+  .hero__claim-accent {
+    display: block;
+    color: var(--color-cream);
+  }
+
+  .hero__lead {
+    max-width: 34ch;
+    color: var(--color-text-muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2xs);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .hero__meta {
+    font-family: var(--font-condensed);
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-faint);
+  }
+
+  /* --- Desktop: split canvas with the brand's brush transition ---------- */
+
+  @media (min-width: 62rem) {
+    .hero {
+      min-height: min(88svh, 52rem);
+    }
+
+    .hero__media {
+      inset-inline-start: 42%;
+      /* Frame the cut, not the dark board behind it. */
+      -webkit-mask-image: url('/brand/brush-edge.svg');
+      mask-image: url('/brand/brush-edge.svg');
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    .hero__media::after {
+      background: linear-gradient(
+        to right,
+        rgb(10 10 10 / 0.88) 0%,
+        rgb(10 10 10 / 0.28) 18%,
+        rgb(10 10 10 / 0.04) 55%,
+        rgb(10 10 10 / 0.34) 100%
+      );
+    }
+
+    .hero__image {
+      object-position: 34% 46%;
+    }
+
+    .hero__content {
+      max-width: 38rem;
+      gap: var(--space-md);
+    }
+
+    .hero__claim {
+      font-size: var(--step-3);
+    }
+  }
+
+  @media (min-width: 90rem) {
+    .hero__media {
+      inset-inline-start: 46%;
+    }
+  }
+</style>

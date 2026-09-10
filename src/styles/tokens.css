@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Cortes Argentinos — design tokens
+
+   Colours are sampled directly from the supplied brochure and price
+   catalogue (see CONTENT_NOTES.md for the exact source pixels).
+   ========================================================================== */
+
+:root {
+  /* --- Colour ------------------------------------------------------------ */
+  /* Charcoal ladder, built around the concrete texture of the source PDFs. */
+  --color-bg: #1b1b1b;
+  --color-bg-deep: #101010;      /* the flat rect behind the brochure cover */
+  --color-bg-elevated: #242424;
+  --color-bg-raised: #2e2e2e;    /* mean luminance of the source texture */
+
+  /* Brand red — #C41F23 is the heading red, #C63B3F the price-pill red. */
+  --color-red: #c41f23;
+  --color-red-bright: #d8272c;
+  --color-red-soft: #c63b3f;
+  --color-red-deep: #8f1418;
+
+  /* Warm neutral used for "¿DÓNDE ESTAMOS?" and "ES NUESTRO ARTE".
+     Also carries small accent text: brand red cannot reach 4.5:1 at body
+     sizes on charcoal, so red is reserved for display type and filled
+     buttons, and cream does the work at 14–16px. */
+  --color-cream: #dab794;
+  --color-cream-dim: #b8977a;
+
+  --color-surface: #ffffff;      /* the rounded product tiles */
+  --color-surface-dim: #f2efec;
+
+  --color-text: #f4f1ee;
+  --color-text-muted: #a8a29b;
+  --color-text-faint: #918c85;  /* AA (>=4.5) on every charcoal in this ladder */
+  --color-on-surface: #1a1a1a;
+  --color-on-surface-muted: #5f5b56;
+
+  --color-border: rgb(255 255 255 / 0.11);
+  --color-border-strong: rgb(255 255 255 / 0.2);
+
+  --color-focus: var(--color-cream);
+
+  /* --- Typography -------------------------------------------------------- */
+  --font-display: 'Playfair Display', 'Times New Roman', serif;
+  --font-condensed: 'Oswald', 'Arial Narrow', system-ui, sans-serif;
+  --font-body: 'Cairo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --step--1: clamp(0.8rem, 0.77rem + 0.15vw, 0.875rem);
+  --step-0: clamp(0.95rem, 0.91rem + 0.2vw, 1.0625rem);
+  --step-1: clamp(1.1rem, 1.03rem + 0.35vw, 1.3rem);
+  --step-2: clamp(1.35rem, 1.2rem + 0.7vw, 1.75rem);
+  --step-3: clamp(1.7rem, 1.42rem + 1.4vw, 2.5rem);
+  --step-4: clamp(2.1rem, 1.6rem + 2.5vw, 3.6rem);
+  --step-5: clamp(2.6rem, 1.7rem + 4.4vw, 5.5rem);
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.25;
+  --leading-normal: 1.65;
+
+  --tracking-wide: 0.08em;
+  --tracking-wider: 0.16em;
+
+  /* --- Space ------------------------------------------------------------- */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.25rem;
+  --space-xl: 3.5rem;
+  --space-2xl: clamp(3.5rem, 2.5rem + 5vw, 6.5rem);
+  --space-3xl: clamp(5rem, 3rem + 9vw, 9rem);
+
+  /* --- Layout ------------------------------------------------------------ */
+  --container: 78rem;
+  --container-narrow: 46rem;
+  --container-wide: 92rem;
+  --gutter: clamp(1.1rem, 0.6rem + 2.4vw, 3rem);
+
+  /* --- Radii ------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 22px;   /* matches the rounded tiles in the price catalogue */
+  --radius-pill: 999px;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow-md: 0 10px 24px -12px rgb(0 0 0 / 0.65);
+  --shadow-lg: 0 26px 60px -24px rgb(0 0 0 / 0.8);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 140ms;
+  --duration: 260ms;
+  --duration-slow: 520ms;
+
+  /* --- Brand surfaces ---------------------------------------------------- */
+  /* One 448px tile of the real PDF concrete, baked as black-with-alpha grain. */
+  --texture-url: url('/images/texture.webp');
+  --texture-size: 448px;
+
+  --header-height: 4.5rem;
+}
+
+@media (min-width: 60rem) {
+  :root {
+    --header-height: 5.25rem;
+  }
+}

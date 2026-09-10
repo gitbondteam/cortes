@@ -1,0 +1,286 @@
+---
+import Logo from './Logo.astro';
+import WhatsAppButton from './WhatsAppButton.astro';
+import { nav } from '../data/nav';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === '/' ? path === '/' : path.startsWith(href);
+---
+
+<header class="header">
+  <div class="header__inner container container--wide">
+    <a href="/" class="header__brand" aria-label="Cortes Argentinos — Inicio">
+      <Logo width={168} decorative eager />
+    </a>
+
+    <nav class="header__nav" aria-label="Navegación principal">
+      <ul class="header__list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="header__link"
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="header__cta">
+      <WhatsAppButton label="WhatsApp" class="header__wa" />
+    </div>
+
+    <button
+      type="button"
+      class="header__toggle"
+      id="nav-toggle"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span class="visually-hidden">Abrir menú</span>
+      <span class="header__bars" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="header__mobile" id="mobile-nav" hidden>
+    <nav aria-label="Navegación móvil">
+      <ul class="header__mobile-list">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="header__mobile-link condensed"
+                aria-current={isCurrent(item.href) ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <WhatsAppButton class="header__mobile-wa" />
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: color-mix(in srgb, var(--color-bg-deep) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    min-height: var(--header-height);
+  }
+
+  .header__brand {
+    display: flex;
+    align-items: center;
+    flex: none;
+    margin-inline-end: auto;
+    padding-block: 0.5rem;
+  }
+
+  .header__brand img {
+    width: clamp(120px, 26vw, 168px);
+    height: auto;
+    transition: opacity var(--duration) var(--ease-out);
+  }
+
+  .header__brand:hover img {
+    opacity: 0.82;
+  }
+
+  .header__nav {
+    display: none;
+  }
+
+  .header__list {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2.2vw, 2.25rem);
+    margin: 0;
+  }
+
+  .header__link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 2.75rem;
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: var(--step--1);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    color: var(--color-text-muted);
+    transition: color var(--duration) var(--ease-out);
+  }
+
+  .header__link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0.6rem;
+    height: 2px;
+    background: var(--color-red);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--duration) var(--ease-out);
+  }
+
+  .header__link:hover,
+  .header__link[aria-current='page'] {
+    color: var(--color-text);
+  }
+
+  .header__link:hover::after,
+  .header__link[aria-current='page']::after {
+    transform: scaleX(1);
+  }
+
+  .header__cta {
+    display: none;
+  }
+
+  /* --- Mobile toggle ---------------------------------------------------- */
+
+  .header__toggle {
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex: none;
+    margin-inline-end: calc(var(--space-2xs) * -1);
+    border-radius: var(--radius-sm);
+  }
+
+  .header__bars {
+    position: relative;
+  }
+
+  .header__bars,
+  .header__bars::before,
+  .header__bars::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--color-text);
+    transition: transform var(--duration) var(--ease-out), opacity var(--duration-fast) linear;
+  }
+
+  .header__bars::before,
+  .header__bars::after {
+    content: '';
+    position: absolute;
+  }
+
+  .header__bars::before {
+    transform: translateY(-7px);
+  }
+
+  .header__bars::after {
+    transform: translateY(7px);
+  }
+
+  .header__toggle[aria-expanded='true'] .header__bars {
+    background: transparent;
+  }
+
+  .header__toggle[aria-expanded='true'] .header__bars::before {
+    transform: rotate(45deg);
+  }
+
+  .header__toggle[aria-expanded='true'] .header__bars::after {
+    transform: rotate(-45deg);
+  }
+
+  /* --- Mobile panel ----------------------------------------------------- */
+
+  .header__mobile {
+    padding: var(--space-sm) var(--gutter) var(--space-lg);
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg-deep);
+  }
+
+  .header__mobile-list {
+    display: grid;
+    margin-block-end: var(--space-md);
+  }
+
+  .header__mobile-link {
+    display: block;
+    padding-block: 0.9rem;
+    font-size: var(--step-1);
+    color: var(--color-text-muted);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__mobile-link[aria-current='page'] {
+    color: var(--color-cream);
+  }
+
+  .header__mobile :global(.header__mobile-wa) {
+    width: 100%;
+  }
+
+  @media (min-width: 62rem) {
+    .header__nav,
+    .header__cta {
+      display: block;
+    }
+
+    .header__toggle,
+    .header__mobile {
+      display: none;
+    }
+
+    .header__cta {
+      margin-inline-start: clamp(1rem, 2.2vw, 2.25rem);
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const panel = document.getElementById('mobile-nav');
+
+  if (toggle && panel) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      panel.hidden = !open;
+      toggle.querySelector('.visually-hidden')!.textContent = open ? 'Cerrar menú' : 'Abrir menú';
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true');
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+
+    // Reset the panel when the layout crosses into the desktop breakpoint.
+    const desktop = window.matchMedia('(min-width: 62rem)');
+    desktop.addEventListener('change', (event) => {
+      if (event.matches) setOpen(false);
+    });
+  }
+</script>

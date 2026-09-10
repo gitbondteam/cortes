@@ -1,0 +1,78 @@
+---
+import ProductCard from './ProductCard.astro';
+import type { Product } from '../data/products';
+
+export interface Props {
+  products: Product[];
+  /** How many leading cards load eagerly (roughly one desktop row). */
+  eagerCount?: number;
+  showCategory?: boolean;
+  /** `roomy` is the full catalogue; `snug` is used for related products. */
+  density?: 'roomy' | 'snug';
+  id?: string;
+}
+
+const {
+  products,
+  eagerCount = 0,
+  showCategory = false,
+  density = 'roomy',
+  id,
+} = Astro.props;
+---
+
+<ul class={`grid grid--${density}`} id={id} role="list">
+  {
+    products.map((product, i) => (
+      <li class="grid__item" data-reveal data-reveal-delay={Math.min(i, 7) * 45}>
+        <ProductCard product={product} eager={i < eagerCount} showCategory={showCategory} />
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .grid {
+    display: grid;
+    gap: var(--space-lg) var(--space-md);
+    margin: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .grid__item {
+    min-width: 0;
+  }
+
+  /* Replayed by the filter script so category swaps cross-fade. */
+  .grid.is-swap {
+    animation: grid-swap 240ms var(--ease-out);
+  }
+
+  @keyframes grid-swap {
+    from {
+      opacity: 0.25;
+      transform: translateY(7px);
+    }
+  }
+
+  /* One column only on the narrowest phones, where two cards get cramped. */
+  @media (max-width: 22.5rem) {
+    .grid--roomy {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-lg);
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-xl) var(--space-lg);
+    }
+  }
+
+  @media (min-width: 68rem) {
+    .grid--roomy {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

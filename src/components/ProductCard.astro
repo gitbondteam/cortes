@@ -1,0 +1,148 @@
+---
+import type { Product } from '../data/products';
+import { formatPrice, categoryName } from '../lib/catalog';
+
+export interface Props {
+  product: Product;
+  /** First row of the grid loads eagerly; the rest lazily. */
+  eager?: boolean;
+  /** Show the category chip (used on mixed grids like "destacados"). */
+  showCategory?: boolean;
+}
+
+const { product, eager = false, showCategory = false } = Astro.props;
+const price = formatPrice(product);
+---
+
+<article
+  class="card"
+  data-product
+  data-category={product.category}
+  data-name={product.name.toLowerCase()}
+>
+  <a class="card__link" href={`/catalogo/${product.slug}/`}>
+    <div class="card__tile">
+      <img
+        class="card__image"
+        src={product.image}
+        alt={product.imageAlt}
+        width="420"
+        height="420"
+        loading={eager ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchpriority={eager ? 'high' : 'auto'}
+      />
+    </div>
+
+    <div class="card__body">
+      <h3 class="card__name condensed">{product.name}</h3>
+      {
+        product.presentation ? (
+          <p class="card__presentation">{product.presentation}</p>
+        ) : (
+          showCategory && <p class="card__presentation">{categoryName(product.category)}</p>
+        )
+      }
+      {price && <p class="card__price">{price}</p>}
+    </div>
+  </a>
+</article>
+
+<style>
+  .card {
+    /* Reserved so cards stay the same height whether or not a price shows. */
+    height: 100%;
+  }
+
+  .card__link {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+    gap: var(--space-sm);
+  }
+
+  .card__tile {
+    position: relative;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    padding: 8%;
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition:
+      transform var(--duration) var(--ease-out),
+      box-shadow var(--duration) var(--ease-out);
+  }
+
+  .card__tile::after {
+    /* Hairline that keeps the white tile from bleeding into the charcoal. */
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgb(0 0 0 / 0.06);
+    pointer-events: none;
+  }
+
+  .card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform var(--duration-slow) var(--ease-out);
+  }
+
+  .card__link:hover .card__tile,
+  .card__link:focus-visible .card__tile {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card__link:hover .card__image {
+    transform: scale(1.06);
+  }
+
+  .card__body {
+    display: grid;
+    align-content: start;
+    gap: var(--space-3xs);
+    text-align: center;
+  }
+
+  .card__name {
+    font-size: var(--step-1);
+    color: var(--color-text);
+    transition: color var(--duration) var(--ease-out);
+  }
+
+  .card__link:hover .card__name {
+    color: var(--color-cream);
+  }
+
+  .card__presentation {
+    font-size: var(--step--1);
+    line-height: 1.4;
+    color: var(--color-text-muted);
+  }
+
+  .card__price {
+    justify-self: center;
+    margin-block-start: var(--space-2xs);
+    padding: 0.3rem 1rem;
+    font-family: var(--font-condensed);
+    font-weight: 500;
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: var(--color-red-soft);
+    border-radius: var(--radius-pill);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card__link:hover .card__tile,
+    .card__link:hover .card__image {
+      transform: none;
+    }
+  }
+</style>

@@ -1,0 +1,497 @@
+[
+ {
+  "slug": "aranita",
+  "name": "Arañita",
+  "presentation": "175 g aprox.",
+  "price": 31300,
+  "src": "_work/products/aranita.png",
+  "w": 180,
+  "h": 180,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   0,
+   0
+  ]
+ },
+ {
+  "slug": "bife-de-chorizo",
+  "name": "Bife de Chorizo",
+  "presentation": "500 g aprox. (pack de 2 o 3 bifes anchos)",
+  "price": 35600,
+  "src": "_work/products/bife-de-chorizo.png",
+  "w": 195,
+  "h": 195,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   0,
+   1
+  ]
+ },
+ {
+  "slug": "bife-de-cuadril",
+  "name": "Bife de Cuadril",
+  "presentation": "1 kg aprox.",
+  "price": 28990,
+  "src": "_work/products/bife-de-cuadril.png",
+  "w": 205,
+  "h": 205,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   0,
+   2
+  ]
+ },
+ {
+  "slug": "bife-de-nalga",
+  "name": "Bife de Nalga",
+  "presentation": "1 kg aprox.",
+  "price": 29400,
+  "src": "_work/products/bife-de-nalga.png",
+  "w": 162,
+  "h": 162,
+  "alpha": false,
+  "page": 2,
+  "cell": [
+   1,
+   0
+  ]
+ },
+ {
+  "slug": "bife-de-peceto",
+  "name": "Bife de Peceto",
+  "presentation": "1 kg aprox.",
+  "price": 27600,
+  "src": "_work/products/bife-de-peceto.png",
+  "w": 210,
+  "h": 210,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   1,
+   1
+  ]
+ },
+ {
+  "slug": "bife-de-picana",
+  "name": "Bife de Picaña",
+  "presentation": "500 g aprox. (pack de 3 o 4 bifes)",
+  "price": 32000,
+  "src": "_work/products/bife-de-picana.png",
+  "w": 146,
+  "h": 146,
+  "alpha": false,
+  "page": 2,
+  "cell": [
+   1,
+   2
+  ]
+ },
+ {
+  "slug": "bocado-ancho",
+  "name": "Bocado Ancho",
+  "presentation": "700 g aprox.",
+  "price": 21100,
+  "src": "_work/products/bocado-ancho.png",
+  "w": 210,
+  "h": 210,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   2,
+   0
+  ]
+ },
+ {
+  "slug": "chorizo",
+  "name": "Chorizo",
+  "presentation": "x 4 un.",
+  "price": 13800,
+  "src": "_work/products/chorizo.png",
+  "w": 162,
+  "h": 162,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   2,
+   1
+  ]
+ },
+ {
+  "slug": "colita-de-cuadril",
+  "name": "Colita de Cuadril",
+  "presentation": "800 g aprox.",
+  "price": 29100,
+  "src": "_work/products/colita-de-cuadril.png",
+  "w": 203,
+  "h": 203,
+  "alpha": true,
+  "page": 2,
+  "cell": [
+   2,
+   2
+  ]
+ },
+ {
+  "slug": "corte-americano",
+  "name": "Corte Americano",
+  "presentation": "1 kg aprox.",
+  "price": 29500,
+  "src": "_work/products/corte-americano.png",
+  "w": 178,
+  "h": 178,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   0,
+   0
+  ]
+ },
+ {
+  "slug": "corte-del-rey",
+  "name": "Corte del Rey",
+  "presentation": null,
+  "price": 23880,
+  "src": "_work/products/corte-del-rey.png",
+  "w": 247,
+  "h": 247,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   0,
+   1
+  ]
+ },
+ {
+  "slug": "corte-para-tacos",
+  "name": "Corte para Tacos",
+  "presentation": "500 g",
+  "price": 27900,
+  "src": "_work/products/corte-para-tacos.png",
+  "w": 190,
+  "h": 168,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   0,
+   2
+  ]
+ },
+ {
+  "slug": "costilla",
+  "name": "Costilla",
+  "presentation": "1,250 kg aprox.",
+  "price": 27900,
+  "src": "_work/products/costilla.png",
+  "w": 216,
+  "h": 145,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   1,
+   0
+  ]
+ },
+ {
+  "slug": "costilla-banderita",
+  "name": "Costilla Banderita",
+  "presentation": "1 kg aprox.",
+  "price": 27900,
+  "src": "_work/products/costilla-banderita.png",
+  "w": 189,
+  "h": 189,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   1,
+   1
+  ]
+ },
+ {
+  "slug": "costilla-ventana",
+  "name": "Costilla Ventana",
+  "presentation": "1,250 kg aprox.",
+  "price": 28900,
+  "src": "_work/products/costilla-ventana.png",
+  "w": 232,
+  "h": 140,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   1,
+   2
+  ]
+ },
+ {
+  "slug": "entrana",
+  "name": "Entraña",
+  "presentation": "400 g aprox.",
+  "price": 35700,
+  "src": "_work/products/entrana.png",
+  "w": 173,
+  "h": 173,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   2,
+   0
+  ]
+ },
+ {
+  "slug": "flat-iron",
+  "name": "Flat Iron",
+  "presentation": null,
+  "price": 26500,
+  "src": "_work/products/flat-iron.png",
+  "w": 252,
+  "h": 168,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   2,
+   1
+  ]
+ },
+ {
+  "slug": "lomo",
+  "name": "Lomo",
+  "presentation": "1,5 kg aprox.",
+  "price": 35700,
+  "src": "_work/products/lomo.png",
+  "w": 189,
+  "h": 189,
+  "alpha": true,
+  "page": 3,
+  "cell": [
+   2,
+   2
+  ]
+ },
+ {
+  "slug": "matambre",
+  "name": "Matambre",
+  "presentation": "750 g aprox.",
+  "price": 27500,
+  "src": "_work/products/matambre.png",
+  "w": 189,
+  "h": 189,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   0,
+   0
+  ]
+ },
+ {
+  "slug": "matambre-de-cerdo",
+  "name": "Matambre de Cerdo",
+  "presentation": "750 g aprox.",
+  "price": 22500,
+  "src": "_work/products/matambre-de-cerdo.png",
+  "w": 204,
+  "h": 204,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   0,
+   1
+  ]
+ },
+ {
+  "slug": "molida-especial",
+  "name": "Molida Especial",
+  "presentation": "500 g / 1 kg / 2 kg",
+  "price": 21200,
+  "src": "_work/products/molida-especial.png",
+  "w": 216,
+  "h": 216,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   0,
+   2
+  ]
+ },
+ {
+  "slug": "morcilla",
+  "name": "Morcilla",
+  "presentation": "x 2 un.",
+  "price": 11900,
+  "src": "_work/products/morcilla.png",
+  "w": 239,
+  "h": 159,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   1,
+   0
+  ]
+ },
+ {
+  "slug": "ojo-de-bife",
+  "name": "Ojo de Bife",
+  "presentation": "500 g aprox.",
+  "price": 35700,
+  "src": "_work/products/ojo-de-bife.png",
+  "w": 247,
+  "h": 182,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   1,
+   1
+  ]
+ },
+ {
+  "slug": "osobuco",
+  "name": "Osobuco",
+  "presentation": null,
+  "price": 13500,
+  "src": "_work/products/osobuco.png",
+  "w": 202,
+  "h": 135,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   1,
+   2
+  ]
+ },
+ {
+  "slug": "peceto",
+  "name": "Peceto",
+  "presentation": "1 kg aprox.",
+  "price": 29100,
+  "src": "_work/products/peceto.png",
+  "w": 189,
+  "h": 189,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   2,
+   0
+  ]
+ },
+ {
+  "slug": "picana",
+  "name": "Picaña",
+  "presentation": "1 kg aprox.",
+  "price": 31500,
+  "src": "_work/products/picana.png",
+  "w": 256,
+  "h": 256,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   2,
+   1
+  ]
+ },
+ {
+  "slug": "ponchito-de-cerdo",
+  "name": "Ponchito de Cerdo",
+  "presentation": null,
+  "price": 18900,
+  "src": "_work/products/ponchito-de-cerdo.png",
+  "w": 197,
+  "h": 197,
+  "alpha": true,
+  "page": 4,
+  "cell": [
+   2,
+   2
+  ]
+ },
+ {
+  "slug": "punta-de-espalda",
+  "name": "Punta de Espalda",
+  "presentation": null,
+  "price": 27900,
+  "src": "_work/products/punta-de-espalda.png",
+  "w": 159,
+  "h": 157,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   0,
+   0
+  ]
+ },
+ {
+  "slug": "salame",
+  "name": "Salame",
+  "presentation": "325 g aprox.",
+  "price": 45000,
+  "src": "_work/products/salame.png",
+  "w": 218,
+  "h": 145,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   0,
+   1
+  ]
+ },
+ {
+  "slug": "t-bone",
+  "name": "T-Bone",
+  "presentation": null,
+  "price": 35700,
+  "src": "_work/products/t-bone.png",
+  "w": 248,
+  "h": 166,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   1,
+   0
+  ]
+ },
+ {
+  "slug": "tapa-de-asado",
+  "name": "Tapa de Asado",
+  "presentation": null,
+  "price": 27700,
+  "src": "_work/products/tapa-de-asado.png",
+  "w": 228,
+  "h": 172,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   0,
+   2
+  ]
+ },
+ {
+  "slug": "tomahawk",
+  "name": "Tomahawk",
+  "presentation": null,
+  "price": 35700,
+  "src": "_work/products/tomahawk.png",
+  "w": 248,
+  "h": 166,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   1,
+   1
+  ]
+ },
+ {
+  "slug": "vacio",
+  "name": "Vacío",
+  "presentation": null,
+  "price": 28500,
+  "src": "_work/products/vacio.png",
+  "w": 180,
+  "h": 180,
+  "alpha": true,
+  "page": 5,
+  "cell": [
+   1,
+   2
+  ]
+ }
+]

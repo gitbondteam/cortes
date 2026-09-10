@@ -1,0 +1,198 @@
+---
+import type { GetStaticPaths } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import SectionHeading from '../../components/SectionHeading.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import { site } from '../../data/site';
+import { franchiseIntro, franchiseBenefits, franchiseSteps } from '../../data/franchise';
+import { breadcrumbSchema } from '../../lib/schema';
+
+/**
+ * The franchise page is fully built and kept in the repo, but only emitted when
+ * `site.features.franchises` is true — returning no paths keeps the route out
+ * of `dist/` entirely, so nothing is published until the flag is flipped.
+ */
+export const getStaticPaths = (() =>
+  site.features.franchises ? [{ params: { slug: undefined } }] : []) satisfies GetStaticPaths;
+
+const trail = [{ label: 'Inicio', href: '/' }, { label: 'Franquicias' }];
+---
+
+<BaseLayout
+  title="Franquicias"
+  description="Sumate a la red de franquicias de Cortes Argentinos. Marca en crecimiento, baja inversión inicial y acompañamiento en cada paso."
+  path="/franquicias/"
+  schema={[breadcrumbSchema(trail)]}
+>
+  <section class="intro">
+    <div class="container">
+      <Breadcrumbs trail={trail} class="intro__crumbs" />
+      <p class="eyebrow">{franchiseIntro.eyebrow}</p>
+      <h1 class="display intro__title">
+        Negocio <span class="text-red">altamente rentable</span>
+      </h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="lead muted intro__lead">{franchiseIntro.lead}</p>
+      <WhatsAppButton
+        class="intro__wa"
+        message="Hola, quisiera información sobre las franquicias de Cortes Argentinos."
+        label="Consultar por la franquicia"
+      />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beneficios-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Beneficios"
+        title="Qué incluye"
+        accent="la franquicia"
+        id="beneficios-title"
+        class="section__heading"
+      />
+      <ul class="benefits">
+        {
+          franchiseBenefits.map((benefit, i) => (
+            <li class="benefit" data-reveal data-reveal-delay={Math.min(i, 6) * 45}>
+              <span class="benefit__dot" aria-hidden="true"></span>
+              {benefit}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section steps textured" aria-labelledby="pasos-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="El proceso"
+        title="¿Cómo accedo"
+        accent="a la franquicia?"
+        id="pasos-title"
+        class="section__heading"
+      />
+      <ol class="steps__list">
+        {
+          franchiseSteps.map((step, i) => (
+            <li class="step" data-reveal data-reveal-delay={Math.min(i, 6) * 40}>
+              <span class="step__num condensed">{String(step.step).padStart(2, '0')}</span>
+              <span class="step__label">{step.label}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="steps__cta">
+        <WhatsAppButton
+          message="Hola, quisiera información sobre las franquicias de Cortes Argentinos."
+          label="Quiero más información"
+        />
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: var(--space-xl) var(--space-lg);
+    background-color: var(--color-bg-deep);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  :global(.intro__crumbs) {
+    margin-block-end: var(--space-lg);
+  }
+
+  .intro__title {
+    margin-block: var(--space-sm);
+    font-size: var(--step-4);
+  }
+
+  .intro__lead {
+    max-width: 44ch;
+    margin-block-start: var(--space-md);
+  }
+
+  .intro :global(.intro__wa) {
+    margin-block-start: var(--space-lg);
+  }
+
+  :global(.section__heading) {
+    margin-block-end: var(--space-xl);
+  }
+
+  .benefits {
+    display: grid;
+    gap: var(--space-xs);
+  }
+
+  .benefit {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-xs);
+    padding-block: var(--space-2xs);
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .benefit__dot {
+    flex: none;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--color-red);
+  }
+
+  .steps {
+    background-color: var(--color-bg-deep);
+  }
+
+  .steps__list {
+    display: grid;
+    gap: var(--space-md);
+    counter-reset: step;
+  }
+
+  .step {
+    display: grid;
+    gap: var(--space-2xs);
+    padding: var(--space-md);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .step__num {
+    font-size: var(--step-2);
+    color: var(--color-cream);
+  }
+
+  .step__label {
+    font-size: var(--step--1);
+    color: var(--color-text-muted);
+    line-height: 1.5;
+  }
+
+  .steps__cta {
+    margin-block-start: var(--space-xl);
+    text-align: center;
+  }
+
+  @media (min-width: 40rem) {
+    .benefits {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-xs) var(--space-xl);
+    }
+
+    .steps__list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 62rem) {
+    .steps__list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

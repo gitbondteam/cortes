@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductFilters from '../../components/ProductFilters.astro';
+import ProductGrid from '../../components/ProductGrid.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import Logo from '../../components/Logo.astro';
+import { allProducts } from '../../lib/catalog';
+import { site } from '../../data/site';
+import { breadcrumbSchema } from '../../lib/schema';
+
+const trail = [
+  { label: 'Inicio', href: '/' },
+  { label: 'Catálogo' },
+];
+
+const description = `Catálogo completo de Cortes Argentinos: ${allProducts.length} cortes envasados al vacío, vacunos, cerdo y embutidos. Consultá por WhatsApp.`;
+---
+
+<BaseLayout
+  title="Catálogo de cortes"
+  description={description}
+  path="/catalogo/"
+  schema={[breadcrumbSchema(trail)]}
+>
+  <div class="page-head">
+    <div class="container">
+      <Breadcrumbs trail={trail} class="page-head__crumbs" />
+
+      <div class="page-head__inner">
+        <div class="page-head__text">
+          <p class="eyebrow">{site.catalog.subtitle}</p>
+          <h1 class="display page-head__title">
+            Catálogo <span class="text-red">de cortes</span>
+          </h1>
+          <span class="rule" aria-hidden="true"></span>
+          <p class="lead muted page-head__lead">
+            Cortes de carne de las distintas regiones de nuestro país, envasados al vacío.
+            Consultá disponibilidad y precios del día por WhatsApp.
+          </p>
+          <WhatsAppButton class="page-head__wa" />
+        </div>
+
+        <Logo variant="light" width={260} class="page-head__logo" decorative />
+      </div>
+    </div>
+  </div>
+
+  <section class="section section--tight" aria-labelledby="listado-title">
+    <div class="container">
+      <h2 class="visually-hidden" id="listado-title">Todos los cortes</h2>
+      <ProductFilters />
+      <ProductGrid products={allProducts} eagerCount={4} />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-head {
+    padding-block: var(--space-xl) var(--space-lg);
+    background: var(--color-bg-deep);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  :global(.page-head__crumbs) {
+    margin-block-end: var(--space-lg);
+  }
+
+  .page-head__inner {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: var(--space-lg);
+  }
+
+  .page-head__text {
+    display: grid;
+    justify-items: start;
+    gap: var(--space-sm);
+    max-width: 42rem;
+  }
+
+  .page-head__title {
+    font-size: var(--step-4);
+  }
+
+  .page-head__lead {
+    max-width: 46ch;
+  }
+
+  .page-head__inner :global(.page-head__wa) {
+    margin-block-start: var(--space-2xs);
+  }
+
+  .page-head__inner :global(.page-head__logo) {
+    display: none;
+    flex: none;
+    opacity: 0.22;
+  }
+
+  @media (min-width: 62rem) {
+    .page-head {
+      padding-block: var(--space-2xl) var(--space-xl);
+    }
+
+    .page-head__inner :global(.page-head__logo) {
+      display: block;
+    }
+  }
+</style>

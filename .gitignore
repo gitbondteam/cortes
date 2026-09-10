@@ -1,0 +1,22 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# generated screenshots / QA output (scripts are kept, results are not)
+_work/shots/
+
+# environment
+.env
+.env.production
+
+# macOS / editors
+# .vscode/ is kept on purpose: it carries the Astro extension recommendation
+# and a dev-server launch config that are useful to everyone on the project.
+.DS_Store
+*.log
+
+# handover screenshots + the LAN QR code — regenerable, not project source
+_work/final/
