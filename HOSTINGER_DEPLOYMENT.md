@@ -72,53 +72,37 @@ Because the repo root then contains `dist/`, set the site's document root to
 `public_html/dist` (hPanel → **Advanced → Website settings → Document root**),
 or use A2 instead, which avoids the nesting.
 
-### A2. Build in GitHub Actions, publish only the output
+### A2. Build in GitHub Actions, publish only the output — **this is what is set up**
 
-Cleaner: `main` never contains build artefacts, and a workflow pushes just the
-contents of `dist/` to a `deploy` branch that Hostinger clones into
-`public_html`.
+`main` never contains build artefacts. A workflow builds the site and
+force-pushes the *contents* of `dist/` to a `deploy` branch, which is what
+Hostinger clones into `public_html`.
 
-Create `.github/workflows/deploy.yml`:
+The workflow is already in the repo at **`.github/workflows/deploy.yml`**. It:
 
-```yaml
-name: Build and publish
-
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
-
-permissions:
-  contents: write
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-
-      - run: npm ci
-      - run: npm run build
-
-      - name: Publish dist/ to the deploy branch
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          publish_branch: deploy
-          force_orphan: true
-```
+1. checks out `main`, installs with `npm ci` on Node 22;
+2. runs `npm run build` — which type-checks and validates the catalogue first;
+3. sanity-checks the output (index, 404, `.htaccess`, robots, sitemap, and that
+   exactly 33 product routes exist) and **fails the deploy** if anything is off;
+4. force-pushes `dist/`'s contents to `deploy` using only the built-in
+   `GITHUB_TOKEN` — no third-party actions, no secrets to manage.
 
 Then point Hostinger's Git integration at branch **`deploy`**, directory
 **`public_html`**. Every push to `main` rebuilds and redeploys, and the document
 root stays at the default `public_html`.
 
+> **`deploy` is machine-owned.** It is rewritten from scratch on every run —
+> never commit to it by hand, anything pushed there will be discarded. All real
+> work happens on `main`.
+
 > `npm ci` requires `package-lock.json` to be committed. It is.
+
+To publish without changing anything, re-run the workflow by hand:
+
+```bash
+gh workflow run "Build and publish" --ref main
+gh run watch
+```
 
 ---
 
