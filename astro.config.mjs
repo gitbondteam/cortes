@@ -2,10 +2,9 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-import { site } from './src/data/site.ts';
-
 export default defineConfig({
-  site: site.domain,
+  site: 'https://gitbondteam.github.io',
+  base: '/cortes',
   output: 'static',
   // Directory-style URLs with trailing slashes are the friendliest shape for
   // Apache/LiteSpeed static hosting (Hostinger) — every route is an index.html.
