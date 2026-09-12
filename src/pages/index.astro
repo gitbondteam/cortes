@@ -194,7 +194,7 @@ import { withBase } from '../lib/paths';
         {
           activeCategories.map((category) => (
             <li class="cat" data-reveal>
-              <a class="cat__link" href={`/catalogo/?categoria=${category.id}`}>
+              <a class="cat__link" href={`${withBase('/catalogo/')}?categoria=${category.id}`}>
                 <h3 class="cat__name condensed">{category.name}</h3>
                 <p class="cat__blurb">{category.blurb}</p>
                 <span class="cat__more" aria-hidden="true">Ver cortes →</span>

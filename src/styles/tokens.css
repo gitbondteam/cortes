@@ -96,7 +96,7 @@
 
   /* --- Brand surfaces ---------------------------------------------------- */
   /* One 448px tile of the real PDF concrete, baked as black-with-alpha grain. */
-  --texture-url: url('/images/texture.webp');
+  --texture-url: url('../assets/images/texture.webp');
   --texture-size: 448px;
 
   --header-height: 4.5rem;

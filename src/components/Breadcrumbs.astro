@@ -1,4 +1,6 @@
 ---
+import { withBase } from '../lib/paths';
+
 export interface Crumb {
   label: string;
   /** Omit on the final crumb. */
@@ -19,7 +21,7 @@ const { trail, class: className = '' } = Astro.props;
       trail.map((crumb, i) => (
         <li class="crumbs__item">
           {crumb.href ? (
-            <a class="crumbs__link" href={crumb.href}>
+            <a class="crumbs__link" href={withBase(crumb.href)}>
               {crumb.label}
             </a>
           ) : (
