@@ -6,6 +6,7 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
 import Logo from '../components/Logo.astro';
 import { breadcrumbSchema } from '../lib/schema';
 import { allProducts } from '../lib/catalog';
+import { withBase } from '../lib/paths';
 
 const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
 ---
@@ -38,8 +39,8 @@ const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
     <div class="container container--wide band__inner">
       <figure class="media media--brush band__media" data-reveal>
         <img
-          src="/images/somos-corte.webp"
-          srcset="/images/somos-corte@small.webp 700w, /images/somos-corte.webp 1400w"
+          src={withBase('/images/somos-corte.webp')}
+          srcset={`${withBase('/images/somos-corte@small.webp')} 700w, ${withBase('/images/somos-corte.webp')} 1400w`}
           sizes="(min-width: 56rem) 46vw, 100vw"
           alt="Maestro carnicero cortando carne sobre una tabla de madera"
           width="1400"
@@ -72,8 +73,8 @@ const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
     <div class="container container--wide band__inner">
       <figure class="media media--brush-flip band__media band__media--right" data-reveal>
         <img
-          src="/images/vitrina.webp"
-          srcset="/images/vitrina@small.webp 700w, /images/vitrina.webp 1400w"
+          src={withBase('/images/vitrina.webp')}
+          srcset={`${withBase('/images/vitrina@small.webp')} 700w, ${withBase('/images/vitrina.webp')} 1400w`}
           sizes="(min-width: 56rem) 46vw, 100vw"
           alt="Manos con guantes acomodando bifes sobre una bandeja de pizarra"
           width="1400"
@@ -154,7 +155,7 @@ const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
         {allProducts.length} cortes envasados al vacío, listos para que elijas el tuyo.
       </p>
       <div class="cta__actions">
-        <a class="btn btn--light" href="/catalogo/">Ver catálogo</a>
+        <a class="btn btn--light" href={withBase('/catalogo/')}>Ver catálogo</a>
         <WhatsAppButton variant="ghost" />
       </div>
     </div>
@@ -305,3 +306,4 @@ const trail = [{ label: 'Inicio', href: '/' }, { label: 'Nosotros' }];
     }
   }
 </style>
+import { withBase } from '../lib/paths';

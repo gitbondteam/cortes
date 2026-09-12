@@ -3,14 +3,15 @@ import Logo from './Logo.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
 import { site } from '../data/site';
 import { allProducts } from '../lib/catalog';
+import { withBase } from '../lib/paths';
 ---
 
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero__media">
     <img
       class="hero__image"
-      src="/images/hero-steak.webp"
-      srcset="/images/hero-steak@small.webp 800w, /images/hero-steak.webp 1600w"
+      src={withBase('/images/hero-steak.webp')}
+      srcset={`${withBase('/images/hero-steak@small.webp')} 800w, ${withBase('/images/hero-steak.webp')} 1600w`}
       sizes="(min-width: 62rem) 55vw, 100vw"
       alt="Corte de carne vacuna sobre una tabla de madera, listo para la parrilla"
       width="1600"
@@ -42,7 +43,7 @@ import { allProducts } from '../lib/catalog';
       </p>
 
       <div class="hero__actions">
-        <a class="btn btn--primary" href="/catalogo/">Ver catálogo</a>
+        <a class="btn btn--primary" href={withBase('/catalogo/')}>Ver catálogo</a>
         <WhatsAppButton variant="ghost" />
       </div>
 

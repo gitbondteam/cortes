@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../lib/paths';
 
 export interface Props {
   title?: string;
@@ -24,8 +25,8 @@ const {
 } = Astro.props;
 
 const pageTitle = title ? `${title} | ${site.brandName}` : site.defaultTitle;
-const canonical = new URL(path, site.domain).href;
-const imageUrl = new URL(image, site.domain).href;
+const canonical = new URL(withBase(path), site.domain).href;
+const imageUrl = new URL(withBase(image), site.domain).href;
 ---
 
 <meta charset="utf-8" />
@@ -36,9 +37,9 @@ const imageUrl = new URL(image, site.domain).href;
 {noindex && <meta name="robots" content="noindex, follow" />}
 
 <meta name="theme-color" content="#131313" />
-<link rel="icon" href="/favicon/favicon.ico" sizes="32x32" />
-<link rel="icon" href="/favicon/icon-512.png" type="image/png" sizes="512x512" />
-<link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png" />
+<link rel="icon" href={withBase('/favicon/favicon.ico')} sizes="32x32" />
+<link rel="icon" href={withBase('/favicon/icon-512.png')} type="image/png" sizes="512x512" />
+<link rel="apple-touch-icon" href={withBase('/favicon/apple-touch-icon.png')} />
 
 <meta property="og:site_name" content={site.brandName} />
 <meta property="og:type" content={type} />
@@ -58,14 +59,14 @@ const imageUrl = new URL(image, site.domain).href;
 
 <link
   rel="preload"
-  href="/fonts/cairo-400.woff2"
+  href={withBase('/fonts/cairo-400.woff2')}
   as="font"
   type="font/woff2"
   crossorigin="anonymous"
 />
 <link
   rel="preload"
-  href="/fonts/oswald-600.woff2"
+  href={withBase('/fonts/oswald-600.woff2')}
   as="font"
   type="font/woff2"
   crossorigin="anonymous"

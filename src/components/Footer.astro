@@ -4,6 +4,7 @@ import SocialLinks from './SocialLinks.astro';
 import LocationBlock from './LocationBlock.astro';
 import { nav } from '../data/nav';
 import { site } from '../data/site';
+import { withBase } from '../lib/paths';
 
 const year = new Date().getFullYear();
 ---
@@ -13,7 +14,7 @@ const year = new Date().getFullYear();
 
   <div class="container container--wide footer__inner">
     <div class="footer__brand">
-      <a href="/" aria-label={`${site.brandName} — Inicio`}>
+      <a href={withBase('/')} aria-label={`${site.brandName} — Inicio`}>
         <Logo width={230} />
       </a>
       <p class="footer__claim">{site.claim}</p>
@@ -26,7 +27,7 @@ const year = new Date().getFullYear();
         {
           nav.map((item) => (
             <li>
-              <a class="footer__link" href={item.href}>
+              <a class="footer__link" href={withBase(item.href)}>
                 {item.label}
               </a>
             </li>

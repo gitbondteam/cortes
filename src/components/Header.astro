@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
 import { nav } from '../data/nav';
+import { withBase } from '../lib/paths';
 
 const path = Astro.url.pathname;
 const isCurrent = (href: string) =>
@@ -10,7 +11,7 @@ const isCurrent = (href: string) =>
 
 <header class="header">
   <div class="header__inner container container--wide">
-    <a href="/" class="header__brand" aria-label="Cortes Argentinos — Inicio">
+    <a href={withBase('/')} class="header__brand" aria-label="Cortes Argentinos — Inicio">
       <Logo width={168} decorative eager />
     </a>
 
@@ -20,7 +21,7 @@ const isCurrent = (href: string) =>
           nav.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={withBase(item.href)}
                 class="header__link"
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
               >
@@ -55,7 +56,7 @@ const isCurrent = (href: string) =>
           nav.map((item) => (
             <li>
               <a
-                href={item.href}
+                href={withBase(item.href)}
                 class="header__mobile-link condensed"
                 aria-current={isCurrent(item.href) ? 'page' : undefined}
               >

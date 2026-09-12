@@ -5,6 +5,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductGrid from '../../components/ProductGrid.astro';
 import WhatsAppButton from '../../components/WhatsAppButton.astro';
 import SectionHeading from '../../components/SectionHeading.astro';
+import { withBase } from '../../lib/paths';
 import {
   allProducts,
   relatedProducts,
@@ -56,7 +57,7 @@ const description = [
       <div class="detail__tile">
         <img
           class="detail__image"
-          src={product.image}
+          src={withBase(product.image)}
           alt={product.imageAlt}
           width="420"
           height="420"
@@ -67,7 +68,7 @@ const description = [
 
       <div class="detail__info">
         <p class="eyebrow">
-          <a class="detail__cat" href={`/catalogo/?categoria=${product.category}`}>
+          <a class="detail__cat" href={`${withBase('/catalogo/')}?categoria=${product.category}`}>
             {category}
           </a>
         </p>
@@ -107,7 +108,7 @@ const description = [
             message={productEnquiry(product.name)}
             label={`Consultar por ${product.name}`}
           />
-          <a class="btn btn--ghost" href="/catalogo/">Volver al catálogo</a>
+          <a class="btn btn--ghost" href={withBase('/catalogo/')}>Volver al catálogo</a>
         </div>
 
         <p class="detail__note">

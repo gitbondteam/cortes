@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Logo from '../components/Logo.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { withBase } from '../lib/paths';
 ---
 
 <BaseLayout
@@ -23,8 +24,8 @@ import WhatsAppButton from '../components/WhatsAppButton.astro';
         todos nuestros cortes.
       </p>
       <div class="nf__actions">
-        <a class="btn btn--primary" href="/catalogo/">Ver catálogo</a>
-        <a class="btn btn--ghost" href="/">Ir al inicio</a>
+        <a class="btn btn--primary" href={withBase('/catalogo/')}>Ver catálogo</a>
+        <a class="btn btn--ghost" href={withBase('/')}>Ir al inicio</a>
       </div>
       <WhatsAppButton variant="ghost" class="nf__wa" />
     </div>

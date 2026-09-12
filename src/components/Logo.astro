@@ -1,5 +1,6 @@
 ---
 import { site } from '../data/site';
+import { withBase } from '../lib/paths';
 
 export interface Props {
   variant?: 'light' | 'red' | 'dark';
@@ -25,7 +26,7 @@ const alt = decorative ? '' : `${site.brandName} — ${site.tagline}`;
 ---
 
 <img
-  src={`/brand/logo-${variant}.svg`}
+  src={withBase(`/brand/logo-${variant}.svg`)}
   alt={alt}
   width={width}
   height={height}
@@ -34,3 +35,4 @@ const alt = decorative ? '' : `${site.brandName} — ${site.tagline}`;
   decoding="async"
   aria-hidden={decorative ? 'true' : undefined}
 />
+import { withBase } from '../lib/paths';

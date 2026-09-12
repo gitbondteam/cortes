@@ -8,6 +8,7 @@ import LocationBlock from '../components/LocationBlock.astro';
 import SocialLinks from '../components/SocialLinks.astro';
 import { featuredProducts, allProducts, activeCategories } from '../lib/catalog';
 import { site } from '../data/site';
+import { withBase } from '../lib/paths';
 ---
 
 <BaseLayout
@@ -21,8 +22,8 @@ import { site } from '../data/site';
     <div class="container container--wide split__inner">
       <figure class="media media--brush split__media" data-reveal>
         <img
-          src="/images/somos-corte.webp"
-          srcset="/images/somos-corte@small.webp 700w, /images/somos-corte.webp 1400w"
+          src={withBase('/images/somos-corte.webp')}
+          srcset={`${withBase('/images/somos-corte@small.webp')} 700w, ${withBase('/images/somos-corte.webp')} 1400w`}
           sizes="(min-width: 56rem) 46vw, 100vw"
           alt="Maestro carnicero cortando carne sobre una tabla de madera"
           width="1400"
@@ -54,7 +55,7 @@ import { site } from '../data/site';
             y hace que puedan conocer, ver y sentir el origen de la carne en su máxima
             expresión.
           </p>
-          <a class="btn btn--ghost" href="/nosotros/">Conocé la marca</a>
+          <a class="btn btn--ghost" href={withBase('/nosotros/')}>Conocé la marca</a>
         </div>
       </div>
     </div>
@@ -108,8 +109,8 @@ import { site } from '../data/site';
 
       <figure class="media media--cutout hacemos__media" data-reveal>
         <img
-          src="/images/tabla.webp"
-          srcset="/images/tabla@small.webp 600w, /images/tabla.webp 1200w"
+          src={withBase('/images/tabla.webp')}
+          srcset={`${withBase('/images/tabla@small.webp')} 600w, ${withBase('/images/tabla.webp')} 1200w`}
           sizes="(min-width: 56rem) 42vw, 100vw"
           alt="Cortes de carne presentados sobre una pizarra con tomate y perejil"
           width="1200"
@@ -136,7 +137,7 @@ import { site } from '../data/site';
       <ProductGrid products={featuredProducts} density="snug" showCategory />
 
       <p class="section__cta" data-reveal>
-        <a class="btn btn--light" href="/catalogo/">Ver catálogo completo</a>
+        <a class="btn btn--light" href={withBase('/catalogo/')}>Ver catálogo completo</a>
       </p>
     </div>
   </section>
@@ -146,8 +147,8 @@ import { site } from '../data/site';
     <div class="container container--wide experience__inner">
       <figure class="media media--brush-flip experience__media" data-reveal>
         <img
-          src="/images/vitrina.webp"
-          srcset="/images/vitrina@small.webp 700w, /images/vitrina.webp 1400w"
+          src={withBase('/images/vitrina.webp')}
+          srcset={`${withBase('/images/vitrina@small.webp')} 700w, ${withBase('/images/vitrina.webp')} 1400w`}
           sizes="(min-width: 56rem) 46vw, 100vw"
           alt="Manos con guantes acomodando bifes sobre una bandeja de pizarra"
           width="1400"
@@ -224,8 +225,8 @@ import { site } from '../data/site';
 
       <figure class="media location__media" data-reveal>
         <img
-          src="/images/local.webp"
-          srcset="/images/local@small.webp 700w, /images/local.webp 1400w"
+          src={withBase('/images/local.webp')}
+          srcset={`${withBase('/images/local@small.webp')} 700w, ${withBase('/images/local.webp')} 1400w`}
           sizes="(min-width: 56rem) 40vw, 100vw"
           alt="Maestro carnicero porcionando un corte con una cuchilla"
           width="1400"
@@ -430,3 +431,4 @@ import { site } from '../data/site';
     }
   }
 </style>
+import { withBase } from '../lib/paths';
