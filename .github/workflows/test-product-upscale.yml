@@ -19,7 +19,7 @@ jobs:
           python -m pip install "setuptools<81" wheel
           python -m pip install "numpy==1.26.4"
           python -m pip install torch==2.2.2+cpu torchvision==0.17.2+cpu --index-url https://download.pytorch.org/whl/cpu
-          python -m pip install opencv-python==4.10.0.84 Pillow tqdm huggingface-hub
+          python -m pip install opencv-python==4.10.0.84 Pillow tqdm huggingface-hub==0.25.2
           python -m pip install --no-deps --no-build-isolation git+https://github.com/ai-forever/Real-ESRGAN.git@362a0316878f41dbdfbb23657b450c3353de5acf
       - name: Verify CPU inference environment
         run: |
