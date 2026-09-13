@@ -20,15 +20,17 @@ jobs:
           python -m pip install torch==2.2.2+cpu torchvision==0.17.2+cpu --index-url https://download.pytorch.org/whl/cpu
           python -m pip install opencv-python==4.10.0.84 Pillow tqdm huggingface-hub==0.25.2
           python -m pip install --no-deps --no-build-isolation git+https://github.com/ai-forever/Real-ESRGAN.git@362a0316878f41dbdfbb23657b450c3353de5acf
-      - name: Upscale Tomahawk on white
+      - name: Upscale three products on white
         run: |
           source .venv/bin/activate
           python scripts/test_product_upscale_white.py
       - name: Validate output
         run: |
           test -f upscale-test-white/tomahawk-white-bg.png
+          test -f upscale-test-white/corte-americano-white-bg.png
+          test -f upscale-test-white/aranita-white-bg.png
           python -m json.tool upscale-test-white/report.json >/dev/null
       - uses: actions/upload-artifact@v4
         with:
-          name: realesrgan-white-bg-test
+          name: realesrgan-white-bg-test-3
           path: upscale-test-white/
