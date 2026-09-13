@@ -14,7 +14,7 @@ MAX_DIMENSION = 1600
 
 def paths_from_catalog():
     source = (ROOT / "src/data/products.ts").read_text()
-    entries = re.findall(r"slug: '([^']+)'[\\s\\S]*?image: '([^']+)'", source)
+    entries = re.findall(r"slug: '([^']+)'[\s\S]*?image: '([^']+)'", source)
     return dict(entries)
 
 
