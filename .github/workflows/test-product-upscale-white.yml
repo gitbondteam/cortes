@@ -1,0 +1,34 @@
+name: Test white-background product super-resolution
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upscale:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install CPU inference dependencies
+        run: |
+          python -m venv .venv
+          source .venv/bin/activate
+          python -m pip install --upgrade pip
+          python -m pip install "setuptools<81" wheel "numpy==1.26.4"
+          python -m pip install torch==2.2.2+cpu torchvision==0.17.2+cpu --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install opencv-python==4.10.0.84 Pillow tqdm huggingface-hub==0.25.2
+          python -m pip install --no-deps --no-build-isolation git+https://github.com/ai-forever/Real-ESRGAN.git@362a0316878f41dbdfbb23657b450c3353de5acf
+      - name: Upscale Tomahawk on white
+        run: |
+          source .venv/bin/activate
+          python scripts/test_product_upscale_white.py
+      - name: Validate output
+        run: |
+          test -f upscale-test-white/tomahawk-white-bg.png
+          python -m json.tool upscale-test-white/report.json >/dev/null
+      - uses: actions/upload-artifact@v4
+        with:
+          name: realesrgan-white-bg-test
+          path: upscale-test-white/
