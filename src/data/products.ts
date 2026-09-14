@@ -20,6 +20,8 @@ export interface Product {
   presentation?: string;
   /** Path under `public/`. */
   image: string;
+  /** High-resolution detail-page image generated from the original product photo. */
+  detailImage: string;
   imageAlt: string;
   /** Price per kilo in ARS, from the catalogue. Hidden unless `site.catalog.showPrices`. */
   price?: number;
@@ -30,7 +32,7 @@ export interface Product {
   tags?: string[];
 }
 
-export const products: Product[] = [
+const productRecords: Omit<Product, 'detailImage'>[] = [
   {
     id: 'aranita',
     slug: 'aranita',
@@ -396,3 +398,8 @@ export const products: Product[] = [
     priceUnit: 'kg',
   },
 ];
+
+export const products: Product[] = productRecords.map((product) => ({
+  ...product,
+  detailImage: `/products-detail/${product.slug}.webp`,
+}));
