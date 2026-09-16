@@ -2,7 +2,8 @@
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
-const isGitHubPages = process.env.GITHUB_ACTIONS === 'true';
+const isGitHubPages =
+  process.env.GITHUB_ACTIONS === 'true' && process.env.HOSTINGER_DEPLOY !== 'true';
 
 export default defineConfig({
   site: isGitHubPages
