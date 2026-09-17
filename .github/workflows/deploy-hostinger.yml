@@ -32,9 +32,16 @@ jobs:
           test -f dist/catalogo/corte-americano/index.html
           test -f dist/products-detail/aranita.webp
           test -f dist/products-detail/corte-americano.webp
-          if rg -n '/cortes/' dist; then
+          set +e
+          grep -R -n -F -- '/cortes/' dist
+          grep_status=$?
+          set -e
+          if [ "$grep_status" -eq 0 ]; then
             echo '::error::Hostinger build contains GitHub Pages base paths'
             exit 1
+          elif [ "$grep_status" -ne 1 ]; then
+            echo '::error::Hostinger build validation could not scan dist'
+            exit "$grep_status"
           fi
 
       - name: Upload dist to Hostinger
@@ -46,5 +53,5 @@ jobs:
           protocol: ftp
           port: 21
           local-dir: ./dist/
-          server-dir: public_html/
+          server-dir: ./
           dangerous-clean-slate: false
