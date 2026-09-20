@@ -28,6 +28,7 @@ jobs:
         run: |
           test -f dist/index.html
           test -f dist/catalogo/index.html
+          test -f dist/franquicias/index.html
           test -f dist/catalogo/aranita/index.html
           test -f dist/catalogo/corte-americano/index.html
           test -f dist/products-detail/aranita.webp

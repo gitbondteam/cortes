@@ -6,23 +6,23 @@
  */
 
 export const franchiseIntro = {
-  eyebrow: 'Nuestra franquicia',
-  title: 'Negocio altamente rentable',
-  lead: '¿Por qué invertir en nuestras franquicias?',
+  eyebrow: 'Franquicias',
+  title: 'Crece con Cortes Argentinos',
+  lead: 'Expandimos nuestra propuesta de carnicerías premium para llevar la experiencia de los Maestros de la Carne a nuevas zonas.',
 };
 
 export const franchiseBenefits: string[] = [
-  'Marca en pleno crecimiento.',
-  'Productos de excelente calidad.',
-  'Asesoramiento de zona.',
-  'Capacitaciones constantes.',
-  'Software de gestión.',
-  'App de descuentos.',
-  'Auditorías y mejora continua.',
-  'Gestión de redes sociales.',
-  'Publicidad corporativa.',
-  'Baja inversión inicial.',
-  'Fácil de operar.',
+  'Marca en pleno crecimiento',
+  'Productos de excelente calidad',
+  'Asesoramiento de zona',
+  'Capacitaciones constantes',
+  'Software de gestión',
+  'App de descuentos',
+  'Auditorías y mejora continua',
+  'Gestión de redes sociales',
+  'Publicidad corporativa',
+  'Baja inversión inicial',
+  'Fácil de operar',
 ];
 
 export interface FranchiseStep {
@@ -36,10 +36,10 @@ export const franchiseSteps: FranchiseStep[] = [
   { step: 3, label: 'Estudio y orientación del interesado en base a perfil y capacidad' },
   { step: 4, label: 'Intercambio de información' },
   { step: 5, label: 'Negociación con franquiciante' },
-  { step: 6, label: 'Firma de reserva' },
-  { step: 7, label: 'Análisis de zona de interés y local disponible' },
+  { step: 6, label: 'Análisis de zona de interés y local disponible' },
+  { step: 7, label: 'Firma de reserva' },
   { step: 8, label: 'Firma de contrato de alquiler' },
   { step: 9, label: 'Firma de contrato de franquicia' },
-  { step: 10, label: 'Inicio actividades pre apertura' },
+  { step: 10, label: 'Inicio de actividades pre apertura' },
   { step: 11, label: 'Lanzamiento' },
 ];

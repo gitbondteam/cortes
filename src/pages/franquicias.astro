@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { franchiseIntro, franchiseBenefits, franchiseSteps } from '../data/franchise';
+import { breadcrumbSchema } from '../lib/schema';
+
+const trail = [{ label: 'Inicio', href: '/' }, { label: 'Franquicias' }];
+const whatsappMessage = 'Hola, quiero recibir información sobre las franquicias de Cortes Argentinos.';
+---
+
+<BaseLayout
+  title="Franquicias"
+  description="Conocé las oportunidades de franquicia de Cortes Argentinos, Maestros de la Carne."
+  path="/franquicias/"
+  schema={[breadcrumbSchema(trail)]}
+>
+  <section class="intro">
+    <div class="container">
+      <Breadcrumbs trail={trail} class="intro__crumbs" />
+      <p class="eyebrow">{franchiseIntro.eyebrow}</p>
+      <h1 class="display intro__title">Crece con <span class="text-red">Cortes Argentinos</span></h1>
+      <span class="rule" aria-hidden="true"></span>
+      <p class="lead muted intro__lead">{franchiseIntro.lead}</p>
+      <p class="intro__claim condensed">Nuestra franquicia — negocio altamente rentable</p>
+      <WhatsAppButton class="intro__wa" message={whatsappMessage} label="Quiero información sobre franquicias" />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="beneficios-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="Beneficios"
+        title="¿Por qué invertir en"
+        accent="nuestras franquicias?"
+        id="beneficios-title"
+        class="section__heading"
+      />
+      <ul class="benefits">
+        {
+          franchiseBenefits.map((benefit, index) => (
+            <li class="benefit" data-reveal data-reveal-delay={Math.min(index, 6) * 45}>
+              <span class="benefit__num condensed" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+              <span>{benefit}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="section steps textured" aria-labelledby="pasos-title">
+    <div class="container">
+      <SectionHeading
+        eyebrow="El proceso"
+        title="¿Cómo hago para acceder"
+        accent="a la franquicia?"
+        id="pasos-title"
+        class="section__heading"
+      />
+      <ol class="steps__list">
+        {
+          franchiseSteps.map((step, index) => (
+            <li class="step" data-reveal data-reveal-delay={Math.min(index, 6) * 40}>
+              <span class="step__num condensed">{String(step.step).padStart(2, '0')}</span>
+              <span class="step__label">{step.label}</span>
+            </li>
+          ))
+        }
+      </ol>
+      <p class="steps__cta">
+        <WhatsAppButton message={whatsappMessage} label="Quiero información sobre franquicias" />
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: var(--space-xl) var(--space-lg);
+    background-color: var(--color-bg-deep);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  :global(.intro__crumbs) { margin-block-end: var(--space-lg); }
+
+  .intro__title { margin-block: var(--space-sm); font-size: var(--step-4); }
+
+  .intro__lead { max-width: 48ch; margin-block-start: var(--space-md); }
+
+  .intro__claim { margin-block-start: var(--space-md); color: var(--color-cream); }
+
+  .intro :global(.intro__wa) { margin-block-start: var(--space-lg); }
+
+  :global(.section__heading) { margin-block-end: var(--space-xl); }
+
+  .benefits, .steps__list { display: grid; gap: var(--space-md); }
+
+  .benefit, .step {
+    display: grid;
+    gap: var(--space-2xs);
+    padding: var(--space-md);
+    background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .benefit { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; }
+
+  .benefit__num, .step__num { color: var(--color-red); font-size: var(--step-1); }
+
+  .step__num { color: var(--color-cream); font-size: var(--step-2); }
+
+  .step__label { color: var(--color-text-muted); line-height: 1.5; }
+
+  .steps { background-color: var(--color-bg-deep); }
+
+  .steps__cta { margin-block-start: var(--space-xl); text-align: center; }
+
+  @media (min-width: 40rem) {
+    .benefits, .steps__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  @media (min-width: 62rem) {
+    .steps__list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+</style>

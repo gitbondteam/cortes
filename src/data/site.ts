@@ -12,7 +12,7 @@ export const site = {
   domain: 'https://cortesargentinos.com.ar',
   defaultTitle: 'Cortes Argentinos | Maestros de la Carne',
   defaultDescription:
-    'Cadena de carnicerías especializada en cortes de carne de las distintas regiones de Argentina. Conocé nuestro catálogo de cortes envasados al vacío en Jesús María, Córdoba.',
+    'Cadena de carnicerías especializada en cortes de carne de las distintas regiones de Argentina y oportunidades de franquicia. Conocé nuestro catálogo de cortes envasados al vacío en Jesús María, Córdoba.',
   locale: 'es-AR',
   lang: 'es-AR',
 
@@ -57,7 +57,7 @@ export const site = {
   /** Optional sections, built but not published. */
   features: {
     /** Set to true to publish /franquicias/ and show it in the navigation. */
-    franchises: false,
+    franchises: true,
   },
 } as const;
 
